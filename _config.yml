@@ -1,0 +1,6 @@
+# Ensure GitHub Pages / Jekyll does not strip dotfiles (e.g. .well-known/)
+# and does not attempt to process this as a Jekyll site.
+include:
+  - .well-known
+  - _headers
+plugins: []

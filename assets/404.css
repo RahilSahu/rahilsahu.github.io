@@ -1,0 +1,51 @@
+.notfound {
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+}
+.nf-tag {
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  color: var(--sev-crit);
+  margin: 0 0 1rem;
+  padding: 4px 8px;
+  border: 1px solid var(--sev-crit);
+  border-radius: 3px;
+  align-self: flex-start;
+  background: color-mix(in oklab, var(--sev-crit) 8%, transparent);
+}
+.nf-title {
+  font-family: var(--font-body);
+  font-weight: 800;
+  font-size: clamp(1.75rem, 5vw, 3.25rem);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin: 0 0 2rem;
+  color: var(--ink-strong);
+  max-width: 20ch;
+}
+.nf-term {
+  background: var(--term-bg);
+  color: var(--term-fg);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.7;
+  padding: 20px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--line-strong);
+  overflow-x: auto;
+  margin: 0 0 2rem;
+  max-width: 640px;
+}
+.nf-term .tp { color: var(--term-prompt); }
+.nf-term .tc { color: var(--term-warn); }
+.nf-term .tm { color: var(--term-good); }
+.nf-term .tw { color: var(--term-crit); font-weight: 600; }
+.nf-actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}

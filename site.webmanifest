@@ -1,0 +1,14 @@
+{
+  "name": "Rahil Sahu — Application Security Engineer",
+  "short_name": "Rahil Sahu",
+  "description": "VAPT specialist: web, API, mobile, network. 4+ years, 700+ validated findings.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#0B0F14",
+  "theme_color": "#0B0F14",
+  "orientation": "portrait",
+  "icons": [
+    { "src": "assets/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}

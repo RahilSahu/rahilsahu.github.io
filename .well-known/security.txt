@@ -1,0 +1,12 @@
+# RFC 9116 · https://www.rfc-editor.org/rfc/rfc9116
+# This is a static portfolio site with no backend, no user accounts,
+# and no data collection. If you find a real issue with the site
+# (e.g. content injection, dependency risk in the built assets, or
+# something in the deployment pipeline) please get in touch.
+
+Contact: mailto:rahilsahu.jobs@gmail.com
+Contact: https://www.linkedin.com/in/rahilsahu
+Expires: 2027-12-31T23:59:59.000Z
+Preferred-Languages: en
+Canonical: https://rahilsahu.github.io/.well-known/security.txt
+Policy: https://rahilsahu.github.io/#engagement

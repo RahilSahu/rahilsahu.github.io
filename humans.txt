@@ -1,0 +1,14 @@
+/* TEAM */
+Owner: Rahil Sahu
+Role: Application Security Engineer / Penetration Tester
+Location: Indore, Madhya Pradesh, India
+Contact: rahilsahu.jobs [at] gmail.com
+LinkedIn: https://www.linkedin.com/in/rahilsahu
+GitHub: https://github.com/RahilSahu
+
+/* SITE */
+Standards: HTML5, CSS3, ES2015+
+Components: Hand-written. No frameworks. No trackers.
+Fonts: System UI stack. No web fonts loaded.
+Security: Strict CSP. No cookies. No third-party requests.
+Hosting: GitHub Pages.
