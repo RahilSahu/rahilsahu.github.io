@@ -80,6 +80,7 @@
       <nav class="site-nav" aria-label="Primary">
         <a href="#practice">Practice</a>
         <a href="#experience">Experience</a>
+        <a href="#projects">Projects</a>
         <a href="#toolchain">Toolchain</a>
         <a href="#credentials">Credentials</a>
         <a href="#playground">Playground</a>
@@ -315,10 +316,180 @@
       </div>
     </section>
 
-    <!-- ================== 03 · TOOLCHAIN ================== -->
+
+    <!-- ================== 03 · PROJECTS ================== -->
+    <section class="section section-alt" id="projects" aria-labelledby="projects-title">
+      <div class="wrap">
+        <p class="section-tag"><span class="section-tag-num">03</span> personal projects</p>
+        <h2 class="section-title" id="projects-title">Things I built to make the job easier.</h2>
+        <p class="section-lead">
+          Side projects, all vibe-coded and all GUI-first &mdash; built so a tester (or a student) can run them without touching a terminal.
+          The security tooling exists to exercise my own lab and authorised engagements; none of it is published as a ready-to-run weapon.
+        </p>
+
+        <!-- Featured -->
+        <article class="proj-feature">
+          <div class="proj-feature-head">
+            <span class="proj-kind">web application &middot; education</span>
+            <span class="proj-badge is-flagship">flagship</span>
+          </div>
+          <h3 class="proj-feature-title">StudyFree GPT</h3>
+          <p class="proj-feature-lead">
+            A free education ecosystem for Indian competitive-exam aspirants, built around one rule: optimise for what a student
+            actually learns, not for time-on-app. No AI model is hosted &mdash; students bring their own API keys and unlock only the
+            features they want to pay for, so the platform stays free to run and free to use.
+          </p>
+          <div class="proj-feature-grid">
+            <div class="proj-feature-col">
+              <p class="proj-col-title">What it does</p>
+              <ul class="proj-points">
+                <li>Built-in syllabus coverage with per-topic progress tracking.</li>
+                <li>AI-generated study roadmap that adapts as the student's performance data comes in.</li>
+                <li>Learning-pattern analysis that reshapes pace, sequencing and revision intervals per student.</li>
+                <li>Current-affairs feed powered by the student's own Gemini key.</li>
+                <li>Personal tutor mode powered by the student's own OpenAI key.</li>
+                <li>Two roles &mdash; student and admin &mdash; with separate surfaces and separate privileges.</li>
+              </ul>
+            </div>
+            <div class="proj-feature-col">
+              <p class="proj-col-title">How it's built</p>
+              <ul class="proj-points">
+                <li>Bring-your-own-key model: no vendor keys on the server, no inference costs, no lock-in.</li>
+                <li>All data at rest encrypted; credentials hashed; student API keys stored encrypted and scoped to that student.</li>
+                <li>Role separation and least privilege enforced server-side, not in the UI.</li>
+                <li>Architected to scale from MVP to an enterprise-grade ecosystem without a rewrite.</li>
+              </ul>
+            </div>
+          </div>
+          <ul class="proj-stack" aria-label="Focus areas">
+            <li>bring-your-own-key AI</li>
+            <li>encryption at rest</li>
+            <li>RBAC</li>
+            <li>adaptive learning</li>
+            <li>secure-by-design</li>
+          </ul>
+        </article>
+
+        <!-- Tools -->
+        <div class="proj-grid">
+
+          <article class="proj-card">
+            <div class="proj-head">
+              <span class="proj-kind">appsec tooling</span>
+              <span class="proj-badge">GUI</span>
+            </div>
+            <h3 class="proj-title">Bulk URL Checker</h3>
+            <p class="proj-desc">
+              Takes a list of URLs from CSV, XLSX or TXT, hits them all in one run, and records status code, response headers and
+              timing for each. Produces a detailed report, with optional automated PoC screenshots per URL &mdash; which turns an
+              afternoon of manual triage into a single click.
+            </p>
+            <ul class="proj-stack" aria-label="Capabilities">
+              <li>csv / xlsx / txt input</li>
+              <li>header &amp; status capture</li>
+              <li>PoC screenshots</li>
+            </ul>
+          </article>
+
+          <article class="proj-card">
+            <div class="proj-head">
+              <span class="proj-kind">upload testing</span>
+              <span class="proj-badge">GUI</span>
+            </div>
+            <h3 class="proj-title">Malicious File Generator</h3>
+            <p class="proj-desc">
+              Embeds test payloads into arbitrary file types to exercise file-upload controls end to end &mdash; extension allow-lists,
+              MIME and magic-byte validation, AV and sandbox scanning, and what the application does with a file once it lands.
+              Built for authorised assessments against my own lab and in-scope targets.
+            </p>
+            <ul class="proj-stack" aria-label="Capabilities">
+              <li>polyglot / embedded payloads</li>
+              <li>content-type validation</li>
+              <li>OWASP file upload</li>
+            </ul>
+          </article>
+
+          <article class="proj-card">
+            <div class="proj-head">
+              <span class="proj-kind">upload testing</span>
+              <span class="proj-badge">GUI</span>
+            </div>
+            <h3 class="proj-title">RLO Filename Spoof Generator</h3>
+            <p class="proj-desc">
+              Generates filenames carrying the Unicode right-to-left override character (U+202E) to demonstrate extension spoofing
+              &mdash; <code>invoice&lt;U+202E&gt;fdp.exe</code> renders as <code>invoiceexe.pdf</code> in most file pickers and mail
+              clients while still executing as a binary. Useful for proving that an upload filter reads the displayed name rather
+              than the real one, and for phishing-awareness demos.
+            </p>
+            <ul class="proj-stack" aria-label="Capabilities">
+              <li>U+202E</li>
+              <li>MITRE T1036.002</li>
+              <li>filter bypass PoC</li>
+            </ul>
+          </article>
+
+          <article class="proj-card">
+            <div class="proj-head">
+              <span class="proj-kind">upload testing</span>
+              <span class="proj-badge">GUI</span>
+            </div>
+            <h3 class="proj-title">File Size Inflator</h3>
+            <p class="proj-desc">
+              Pads any file type with dummy data up to a target size on demand. Written for the boring half of upload testing:
+              finding the real size ceiling, checking whether the limit is enforced server-side or only in JavaScript, and seeing
+              how WAF body caps, timeouts and storage quotas behave at the boundary.
+            </p>
+            <ul class="proj-stack" aria-label="Capabilities">
+              <li>arbitrary file types</li>
+              <li>exact target size</li>
+              <li>limit &amp; quota testing</li>
+            </ul>
+          </article>
+
+          <article class="proj-card">
+            <div class="proj-head">
+              <span class="proj-kind">browser extension</span>
+              <span class="proj-badge">Chromium</span>
+            </div>
+            <h3 class="proj-title">Ad Blocker Extension</h3>
+            <p class="proj-desc">
+              A request-filtering extension for Chromium-based browsers that removes roughly 80% of ad placements on the sites I use
+              daily. Built mostly to understand the filtering pipeline from the inside &mdash; rule matching, request interception and
+              what the browser will and won't let an extension block.
+            </p>
+            <ul class="proj-stack" aria-label="Capabilities">
+              <li>request filtering</li>
+              <li>rule matching</li>
+              <li>~80% block rate</li>
+            </ul>
+          </article>
+
+          <article class="proj-card">
+            <div class="proj-head">
+              <span class="proj-kind">browser extension</span>
+              <span class="proj-badge">Chromium</span>
+            </div>
+            <h3 class="proj-title">Meeting Attendance Recorder</h3>
+            <p class="proj-desc">
+              Captures the attendee roster of a live browser-based meeting &mdash; every participant who joined, the total head count,
+              and how long each person actually stayed &mdash; then exports it as a clean attendance register. Replaces scrolling the
+              participant panel and counting by hand at the end of a session.
+            </p>
+            <ul class="proj-stack" aria-label="Capabilities">
+              <li>join / leave timestamps</li>
+              <li>per-person dwell time</li>
+              <li>exportable register</li>
+            </ul>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ================== 04 · TOOLCHAIN ================== -->
     <section class="section" id="toolchain" aria-labelledby="toolchain-title">
       <div class="wrap">
-        <p class="section-tag"><span class="section-tag-num">03</span> toolchain</p>
+        <p class="section-tag"><span class="section-tag-num">04</span> toolchain</p>
         <h2 class="section-title" id="toolchain-title">What's in the kit.</h2>
         <p class="section-lead">Filter by category to see the tools I use day-to-day.</p>
 
@@ -372,10 +543,10 @@
       </div>
     </section>
 
-    <!-- ================== 04 · CREDENTIALS ================== -->
+    <!-- ================== 05 · CREDENTIALS ================== -->
     <section class="section section-alt" id="credentials" aria-labelledby="credentials-title">
       <div class="wrap">
-        <p class="section-tag"><span class="section-tag-num">04</span> credentials</p>
+        <p class="section-tag"><span class="section-tag-num">05</span> credentials</p>
         <h2 class="section-title" id="credentials-title">Certifications &amp; education.</h2>
 
         <div class="cred-grid">
@@ -447,11 +618,11 @@
       </div>
     </section>
 
-    <!-- ================== 05 · PLAYGROUND ================== -->
+    <!-- ================== 06 · PLAYGROUND ================== -->
     <section class="section section-playground" id="playground" aria-labelledby="playground-title">
       <div class="scanlines" aria-hidden="true"></div>
       <div class="wrap">
-        <p class="section-tag"><span class="section-tag-num">05</span> hands-on</p>
+        <p class="section-tag"><span class="section-tag-num">06</span> hands-on</p>
         <h2 class="section-title" id="playground-title">Playground &mdash; try it yourself.</h2>
         <p class="section-lead">
           Four small challenges rendered entirely in your browser. No servers, no tracking, no execution of your input &mdash; each check is client-side and read-only.
@@ -558,10 +729,10 @@
       </div>
     </section>
 
-    <!-- ================== 06 · LEARN ================== -->
+    <!-- ================== 07 · LEARN ================== -->
     <section class="section section-alt" id="learn" aria-labelledby="learn-title">
       <div class="wrap">
-        <p class="section-tag"><span class="section-tag-num">06</span> resources</p>
+        <p class="section-tag"><span class="section-tag-num">07</span> resources</p>
         <h2 class="section-title" id="learn-title">Learn offensive security &mdash; free.</h2>
         <p class="section-lead">
           Curated free platforms that carried me through 4+ years of practice. Everything below is either free-tier or fully free. Pick one, don't jump between five.
@@ -661,11 +832,11 @@
       </div>
     </section>
 
-    <!-- ================== 07 · AI × SECURITY ================== -->
+    <!-- ================== 08 · AI × SECURITY ================== -->
     <section class="section section-ai" id="ai-sec" aria-labelledby="ai-sec-title">
       <canvas class="particles-canvas" id="particlesCanvas" aria-hidden="true"></canvas>
       <div class="wrap">
-        <p class="section-tag"><span class="section-tag-num">07</span> emerging</p>
+        <p class="section-tag"><span class="section-tag-num">08</span> emerging</p>
         <h2 class="section-title" id="ai-sec-title">AI &times; Security.</h2>
         <p class="section-lead">
           Where I'm spending research time: attacking LLM-integrated applications, and using AI to accelerate offensive workflows.
@@ -728,12 +899,12 @@
       </div>
     </section>
 
-    <!-- ================== 08 · CONTACT ================== -->
+    <!-- ================== 09 · CONTACT ================== -->
     <section class="section" id="engagement" aria-labelledby="engagement-title">
       <div class="wrap engagement-grid">
 
         <div class="engagement-copy">
-          <p class="section-tag"><span class="section-tag-num">08</span> get in touch</p>
+          <p class="section-tag"><span class="section-tag-num">09</span> get in touch</p>
           <h2 class="section-title" id="engagement-title">Request an engagement.</h2>
           <p class="section-lead">
             For a scoped assessment, a security architecture review, or a vendor questionnaire — send a short brief.
