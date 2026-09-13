@@ -2111,7 +2111,7 @@ body { overflow-x: clip; max-width: 100%; }
 /* 9 · Header on phones: the 8-item nav was wrapping to 2–3 rows and
        eating the top third of the screen. Keep every link reachable
        as one edge-to-edge, horizontally scrollable row instead. */
-@media (max-width: 940px) {
+@media (max-width: 1150px) {
   .header-inner {
     flex-wrap: wrap;
     gap: 0.6rem 0.75rem;
@@ -2137,11 +2137,19 @@ body { overflow-x: clip; max-width: 100%; }
   .site-nav::-webkit-scrollbar { display: none; }
 }
 
-/* 10 · Header breathing room after the 9th nav item ("Projects").
-        Stop the brand block collapsing into two wrapped lines. */
-.brand-name, .brand-role { white-space: nowrap; }
-@media (max-width: 1320px) { .brand-role { display: none; } }
-@media (max-width: 1000px) { .site-nav { gap: 0.8rem; } }
+/* 10 · Header fit after the 9th nav item ("Projects").
+        .wrap caps at 1180px, so the header's usable width is the same
+        on a 1280 and a 2560 monitor — the brand, 9 nav links and 3
+        action controls simply do not all fit. Previously .brand could
+        shrink (min-width:0) while its text was nowrap, so the name and
+        role painted straight over the nav links.
+        Fix: brand never shrinks, its box clips, and the role line —
+        already repeated in the hero and the footer — comes out. */
+.brand { flex: 0 0 auto; }
+.brand-text { overflow: hidden; }
+.brand-name { white-space: nowrap; }
+.brand-role { display: none; }
+.site-nav { min-width: 0; gap: 1rem; }
 
 /* 11 · Very small screens: fit brand + actions on one row so the
         header costs two rows, not three. */
