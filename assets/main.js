@@ -70,8 +70,12 @@
 
     function resize() {
       var dpr = Math.min(window.devicePixelRatio || 1, 2);
-      w = window.innerWidth;
-      h = window.innerHeight;
+      /* Use the layout viewport, not window.innerWidth: on a mobile
+         browser innerWidth reflects the (possibly zoomed) visual
+         viewport, which can size this fixed canvas wider than the
+         page and feed back into horizontal overflow. */
+      w = doc.documentElement.clientWidth || window.innerWidth;
+      h = doc.documentElement.clientHeight || window.innerHeight;
       canvas.width = Math.floor(w * dpr);
       canvas.height = Math.floor(h * dpr);
       canvas.style.width = w + 'px';
