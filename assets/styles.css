@@ -1854,6 +1854,22 @@ html { scroll-behavior: smooth; }
 .site-nav a { white-space: nowrap; }
 
 /* ============================================================
+   31a · SUB-SECTION HEADINGS (within a section)
+   ============================================================ */
+.sub-title {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: var(--step-2);
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  color: var(--ink-strong);
+  margin: 3rem 0 0.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--line);
+}
+.sub-title + .section-lead { margin-bottom: 1.5rem; }
+
+/* ============================================================
    31b · PERSONAL PROJECTS
    ============================================================ */
 
