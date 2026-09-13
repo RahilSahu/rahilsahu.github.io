@@ -1852,3 +1852,307 @@ html { scroll-behavior: smooth; }
 
 /* -------- Nav item stability (prevent wrap of "AI Security") -------- */
 .site-nav a { white-space: nowrap; }
+
+/* ============================================================
+   31b · PERSONAL PROJECTS
+   ============================================================ */
+
+/* ---- Flagship card ---- */
+.proj-feature {
+  margin-top: 2rem;
+  padding: clamp(1.25rem, 3vw, 2rem);
+  background: var(--surface);
+  border: 1px solid var(--line-strong);
+  border-radius: 10px;
+  border-left: 3px solid var(--accent);
+  position: relative;
+}
+.proj-feature-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  margin-bottom: 0.6rem;
+}
+.proj-feature-title {
+  font-size: clamp(1.375rem, 3.2vw, var(--step-3));
+  line-height: 1.2;
+  margin: 0 0 0.75rem;
+  color: var(--ink-strong);
+  letter-spacing: -0.015em;
+}
+.proj-feature-lead {
+  margin: 0 0 1.75rem;
+  color: var(--ink-muted);
+  font-size: var(--step-0);
+  line-height: 1.6;
+  max-width: 68ch;
+}
+.proj-feature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+  gap: 1.5rem 2.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--line);
+}
+.proj-col-title {
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-subtle);
+  margin: 0 0 0.75rem;
+}
+.proj-points {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.5rem;
+}
+.proj-points li {
+  position: relative;
+  padding-left: 1.1rem;
+  font-size: var(--step--1);
+  line-height: 1.55;
+  color: var(--ink);
+}
+.proj-points li::before {
+  content: "\25B8";
+  position: absolute;
+  left: 0;
+  top: -0.05em;
+  color: var(--accent);
+}
+
+/* ---- Tool cards ---- */
+.proj-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+  gap: 1rem;
+  margin-top: 1.25rem;
+}
+.proj-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1.25rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+.proj-card::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; height: 2px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+.proj-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px -12px rgba(0,0,0,0.15);
+}
+.proj-card:hover::before { transform: scaleX(1); }
+
+.proj-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+}
+.proj-kind { color: var(--ink-muted); }
+.proj-badge {
+  flex: 0 0 auto;
+  padding: 2px 8px;
+  border-radius: 3px;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  color: var(--ink);
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.proj-badge.is-flagship {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.proj-title {
+  font-size: var(--step-1);
+  margin: 0;
+  color: var(--ink-strong);
+  line-height: 1.3;
+}
+.proj-desc {
+  margin: 0;
+  color: var(--ink);
+  font-size: var(--step--1);
+  line-height: 1.55;
+}
+.proj-desc code {
+  font-family: var(--font-mono);
+  font-size: 0.92em;
+  padding: 1px 4px;
+  border-radius: 3px;
+  background: var(--surface-alt);
+  border: 1px solid var(--line);
+  overflow-wrap: anywhere;
+}
+
+/* ---- Capability chips ---- */
+.proj-stack {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: auto 0 0;
+  padding: 0;
+}
+.proj-feature .proj-stack { margin-top: 1.5rem; }
+.proj-stack li {
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  color: var(--ink-muted);
+  padding: 3px 8px;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  background: var(--bg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .proj-card { transition: none; }
+  .proj-card:hover { transform: none; }
+}
+
+/* ============================================================
+   32 · MOBILE FIT — stop horizontal overflow / auto-zoom-out
+   ------------------------------------------------------------
+   Root cause: grid & flex children default to min-width:auto, so
+   the non-wrapping <pre class="terminal-body"> (≈73 mono chars)
+   set a ~580px min-content floor on the hero grid track. That
+   floor is wider than a phone viewport, so the whole page became
+   horizontally scrollable and mobile browsers zoomed out to fit.
+   ============================================================ */
+
+/* 1 · Let layout children shrink below their content width.
+       Scoped with `*` (specificity 0,0,1) so any real class-based
+       min-width — e.g. .theme-toggle — still wins. */
+main *,
+.site-footer * { min-width: 0; }
+
+/* 2 · Long unbreakable strings (URLs, emails, hashes) wrap. */
+body { overflow-wrap: break-word; }
+
+/* 3 · Terminal keeps its column alignment and scrolls inside
+       itself instead of stretching the page. */
+.terminal,
+.terminal-chrome,
+.terminal-body { max-width: 100%; }
+.terminal-body {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
+}
+.terminal-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 4 · Practice matrix scrolls as a table, not as the page. */
+.matrix-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+/* 5 · Media and canvases never exceed the viewport. */
+img, svg, video, canvas, iframe, table, pre { max-width: 100%; }
+
+/* ---------- Phones ---------- */
+@media (max-width: 700px) {
+  .terminal-body { font-size: 11px; padding: 14px 14px 18px; line-height: 1.6; }
+  .terminal-note { text-align: left; }
+  .hero-metrics { gap: 0.25rem 0; }
+  .metric { padding: 0 0.5rem; }
+}
+
+/* ---------- Small phones: header must not overflow ---------- */
+@media (max-width: 560px) {
+  .header-inner { gap: 0.75rem; flex-wrap: wrap; row-gap: 0.5rem; }
+  .header-actions { gap: 0.5rem; margin-left: auto; }
+  .btn-small { padding: 6px 10px; }
+}
+
+/* 7 · auto-fit grids: the track floor must never exceed the
+       viewport, or the grid pushes the page wide on small phones. */
+.also-grid  { grid-template-columns: repeat(auto-fit,  minmax(min(240px, 100%), 1fr)); }
+.cred-grid  { grid-template-columns: repeat(auto-fit,  minmax(min(280px, 100%), 1fr)); }
+.ctf-grid   { grid-template-columns: repeat(auto-fit,  minmax(min(320px, 100%), 1fr)); }
+.learn-grid { grid-template-columns: repeat(auto-fit,  minmax(min(280px, 100%), 1fr)); }
+.ai-grid    { grid-template-columns: repeat(auto-fit,  minmax(min(280px, 100%), 1fr)); }
+.tool-grid  { grid-template-columns: repeat(auto-fill, minmax(min(190px, 100%), 1fr)); }
+
+/* 6 · Safety net. `clip` (not `hidden`) so the sticky header
+       and scroll-linked effects keep working. */
+html { overflow-x: clip; }
+body { overflow-x: clip; max-width: 100%; }
+
+/* 8 · Restore the sticky header. Section 15's
+       `.site-header, main, .site-footer { position: relative; }`
+       silently overrode `position: sticky` from section 4. */
+.site-header { position: sticky; top: 0; z-index: 30; }
+
+/* 9 · Header on phones: the 8-item nav was wrapping to 2–3 rows and
+       eating the top third of the screen. Keep every link reachable
+       as one edge-to-edge, horizontally scrollable row instead. */
+@media (max-width: 940px) {
+  .header-inner {
+    flex-wrap: wrap;
+    gap: 0.6rem 0.75rem;
+    padding-top: 0.7rem;
+    padding-bottom: 0.55rem;
+  }
+  .brand { flex: 0 1 auto; min-width: 0; }
+  .header-actions { flex: 0 0 auto; margin-left: auto; }
+  .site-nav {
+    order: 3;
+    flex: 1 0 100%;
+    flex-wrap: nowrap;
+    gap: 1.1rem;
+    margin-left: 0;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    margin-inline: calc(var(--gutter) * -1);
+    padding-inline: var(--gutter);
+  }
+  .site-nav a { flex: 0 0 auto; }
+  .site-nav::-webkit-scrollbar { display: none; }
+}
+
+/* 10 · Header breathing room after the 9th nav item ("Projects").
+        Stop the brand block collapsing into two wrapped lines. */
+.brand-name, .brand-role { white-space: nowrap; }
+@media (max-width: 1320px) { .brand-role { display: none; } }
+@media (max-width: 1000px) { .site-nav { gap: 0.8rem; } }
+
+/* 11 · Very small screens: fit brand + actions on one row so the
+        header costs two rows, not three. */
+@media (max-width: 480px) {
+  .header-inner { gap: 0.5rem 0.5rem; }
+  .header-actions { gap: 0.4rem; }
+  .theme-toggle { min-width: 0; padding: 5px 8px; gap: 6px; }
+  .btn-small { padding: 5px 9px; font-size: 0.78rem; }
+  .brand-mark { padding: 5px 7px; }
+  /* fx is a niche control — the state dot carries it, the aria-label
+     still names it for assistive tech. Buys back a header row. */
+  .fx-label { display: none; }
+  .fx-toggle { padding: 5px 8px; }
+}
