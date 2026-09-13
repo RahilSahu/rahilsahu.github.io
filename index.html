@@ -5,14 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
   <title>Rahil Sahu — Application Security Engineer / Penetration Tester</title>
-  <meta name="description" content="Rahil Sahu is an Application Security Engineer in Indore, India, specialising in VAPT for web, API, mobile and network. 4+ years, 700+ validated findings, CEH-certified.">
+  <meta name="description" content="Rahil Sahu is an Application Security Engineer in Indore, India, specialising in VAPT and security architecture review for web, API, mobile and network. 4+ years, 700+ validated findings, CEH-certified.">
   <meta name="author" content="Rahil Sahu">
   <link rel="canonical" href="https://rahilsahu.github.io/">
 
   <!-- Security headers deliverable via meta (GitHub Pages does not permit custom HTTP headers).
        HSTS and X-Frame-Options must be set at the server / edge; frame-ancestors covers framing. -->
   <!-- CSP: the inline hash below covers the JSON-LD Person block only. Recompute if that block changes. -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-QbWk11yKz01YZRRUp2davDhdArfRaaA+5MMC7Qey2LE='; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; base-uri 'self'; form-action mailto:; frame-ancestors 'none'; object-src 'none'; upgrade-insecure-requests">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-zPXuOCJPYXerAUbF6aGOjyPkcseN+qzuxT5hQcKkTB8='; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; base-uri 'self'; form-action mailto:; frame-ancestors 'none'; object-src 'none'; upgrade-insecure-requests">
   <meta http-equiv="X-Content-Type-Options" content="nosniff">
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()">
@@ -20,7 +20,7 @@
   <!-- Open Graph / social -->
   <meta property="og:type" content="profile">
   <meta property="og:title" content="Rahil Sahu — Application Security Engineer">
-  <meta property="og:description" content="VAPT specialist: web, API, mobile, network. 4+ years, 700+ validated findings.">
+  <meta property="og:description" content="VAPT and security architecture: web, API, mobile, network. 4+ years, 700+ validated findings.">
   <meta property="og:url" content="https://rahilsahu.github.io/">
   <meta property="og:locale" content="en_IN">
   <meta name="twitter:card" content="summary">
@@ -53,7 +53,9 @@
     },
     "knowsAbout": [
       "Penetration Testing", "VAPT", "OWASP Top 10", "API Security",
-      "Mobile Security", "Cloud Security", "ISO 27001", "SIEM", "SAST/DAST"
+      "Mobile Security", "Cloud Security", "ISO 27001", "SIEM", "SAST/DAST",
+      "Security Architecture Review", "Threat Modeling", "Product Security",
+      "Secure SDLC", "Authentication Architecture", "RBAC"
     ]
   }
   </script>
@@ -230,6 +232,12 @@
                 <td data-label="Deliverable">Config review + IAM + logging validation</td>
               </tr>
               <tr>
+                <th scope="row"><span class="matrix-scope">Security architecture</span></th>
+                <td data-label="Standard">Threat modelling &middot; secure design review</td>
+                <td data-label="Primary tools">Data-flow &amp; trust-boundary analysis, design walkthroughs</td>
+                <td data-label="Deliverable">Threats + required controls, pre-implementation</td>
+              </tr>
+              <tr>
                 <th scope="row"><span class="matrix-scope">Source code review</span></th>
                 <td data-label="Standard">Secure SDLC · CWE Top 25</td>
                 <td data-label="Primary tools">SonarQube, SonarCloud, Snyk, CodeAnt.ai</td>
@@ -239,6 +247,29 @@
           </table>
         </div>
 
+        <h3 class="sub-title">Security architecture &amp; design review</h3>
+        <p class="section-lead">Engaged before code is written: reviewing proposed designs, modelling threats and defining the controls a feature needs, so architectural risk is closed at design time rather than found in a pentest.</p>
+
+        <div class="also-grid">
+          <div class="also-card">
+            <h3 class="also-title">Authentication architecture</h3>
+            <p>JWT design and review across token lifecycle, expiry, refresh-token handling, signature validation, claims, key management and secure storage. MFA review covering enrollment, OTP/TOTP handling, recovery, session binding and bypass paths.</p>
+          </div>
+          <div class="also-card">
+            <h3 class="also-title">Authorization &amp; trust boundaries</h3>
+            <p>RBAC and least-privilege design, API authorization, session management. Trust-boundary and data-flow review targeting broken access control, IDOR/BOLA, privilege escalation and authentication bypass before they ship.</p>
+          </div>
+          <div class="also-card">
+            <h3 class="also-title">File handling &amp; data protection</h3>
+            <p>Upload architecture controls: file-type validation, content inspection, size limits, secure storage, access control, filename handling and prevention of malicious file execution &mdash; plus encryption and sensitive-data protection requirements.</p>
+          </div>
+          <div class="also-card">
+            <h3 class="also-title">Threat modelling</h3>
+            <p>Attack-surface analysis across application components, APIs, authentication flows and data-processing workflows, with security requirements defined per feature and reusable design patterns fed back to the teams.</p>
+          </div>
+        </div>
+
+        <h3 class="sub-title">Beyond testing</h3>
         <div class="also-grid">
           <div class="also-card">
             <h3 class="also-title">Security programme support</h3>
@@ -274,6 +305,7 @@
               <ul class="timeline-points">
                 <li>Sole information-security resource: end-to-end responsibility across programme, tooling and validation.</li>
                 <li>Ran VAPT across web, mobile (Android/iOS) and API surfaces; reported <strong>86 Critical</strong> and <strong>194 High</strong> findings against OWASP Top 10 and API Security Top 10.</li>
+                <li>Own security architecture and design review: threat modelling, JWT and MFA authentication design, RBAC and API authorization, file-upload controls and trust-boundary analysis &mdash; carried out at design time with product and engineering.</li>
                 <li>Deployed Wazuh SIEM in Docker with VirusTotal integration; operated Cloudflare WAF, SentinelOne EDR/CSPM, and DefectDojo for vulnerability lifecycle management on Microsoft Azure infrastructure.</li>
                 <li>Stood up secure remote access via JumpServer and OpenRport; implemented SAST/DAST with SonarQube, SonarCloud, Snyk and CodeAnt.ai.</li>
                 <li>Ran phishing simulations with GoPhish and Evilginx; completed <strong>300+ TPRM</strong> vendor assessments; led secure coding training and cross-team remediation.</li>
@@ -510,6 +542,11 @@
           <li class="tool" data-cats="web"><span class="tool-name">Nuclei</span><span class="tool-kind">templated scanner</span></li>
           <li class="tool" data-cats="web"><span class="tool-name">HTTPx</span><span class="tool-kind">http toolkit</span></li>
           <li class="tool" data-cats="web net"><span class="tool-name">Nessus</span><span class="tool-kind">vuln scanner</span></li>
+          <li class="tool" data-cats="web"><span class="tool-name">Acunetix</span><span class="tool-kind">DAST</span></li>
+          <li class="tool" data-cats="plat"><span class="tool-name">AWS</span><span class="tool-kind">cloud infra</span></li>
+          <li class="tool" data-cats="plat"><span class="tool-name">GCP</span><span class="tool-kind">cloud infra</span></li>
+          <li class="tool" data-cats="plat"><span class="tool-name">OpenRport</span><span class="tool-kind">remote access</span></li>
+          <li class="tool" data-cats="plat recon"><span class="tool-name">VirusTotal</span><span class="tool-kind">threat intel</span></li>
           <li class="tool" data-cats="net"><span class="tool-name">Nmap</span><span class="tool-kind">discovery</span></li>
           <li class="tool" data-cats="net"><span class="tool-name">Wireshark</span><span class="tool-kind">pcap analysis</span></li>
           <li class="tool" data-cats="net"><span class="tool-name">Metasploit</span><span class="tool-kind">exploitation</span></li>
