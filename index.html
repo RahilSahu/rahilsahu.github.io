@@ -12,7 +12,7 @@
   <!-- Security headers deliverable via meta (GitHub Pages does not permit custom HTTP headers).
        HSTS and X-Frame-Options must be set at the server / edge; frame-ancestors covers framing. -->
   <!-- CSP: the inline hash below covers the JSON-LD Person block only. Recompute if that block changes. -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-zPXuOCJPYXerAUbF6aGOjyPkcseN+qzuxT5hQcKkTB8='; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://api.web3forms.com; base-uri 'self'; form-action mailto:; frame-ancestors 'none'; object-src 'none'; upgrade-insecure-requests">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-zPXuOCJPYXerAUbF6aGOjyPkcseN+qzuxT5hQcKkTB8='; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://api.web3forms.com; base-uri 'self'; form-action https://api.web3forms.com; frame-ancestors 'none'; object-src 'none'; upgrade-insecure-requests">
   <meta http-equiv="X-Content-Type-Options" content="nosniff">
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()">
@@ -979,7 +979,10 @@
           </ul>
         </div>
 
-        <form class="engagement-form" id="engagementForm" action="mailto:rahilsahu2000@gmail.com" method="post" enctype="text/plain" novalidate>
+        <form class="engagement-form" id="engagementForm" action="https://api.web3forms.com/submit" method="POST" novalidate>
+          <input type="hidden" name="access_key" value="6101c342-91c6-40d1-8430-a9251d0bbce7">
+          <input type="hidden" name="subject" value="Engagement enquiry via rahilsahu.github.io">
+          <input type="hidden" name="from_name" value="rahilsahu.github.io">
           <div class="form-field">
             <label for="f-name">Your name</label>
             <input id="f-name" name="name" type="text" required autocomplete="name" maxlength="80" spellcheck="false">
@@ -1014,6 +1017,7 @@
           <div class="honeypot" aria-hidden="true">
             <label for="f-website">Do not fill</label>
             <input id="f-website" name="website" type="text" tabindex="-1" autocomplete="off">
+            <input name="botcheck" type="checkbox" tabindex="-1" autocomplete="off">
           </div>
           <div class="form-actions">
             <button class="btn btn-primary" type="submit">Send brief</button>
