@@ -33,6 +33,13 @@
 
   <link rel="stylesheet" href="assets/styles.css">
 
+  <!-- Additive enhancement layer: book cover page-turn, liquid glass, ambient graphics.
+       enhance.js is intentionally NOT deferred — it sets the boot class before first
+       paint so the page never flashes ahead of the cover. Both files are same-origin,
+       so the existing CSP ('self') already covers them. -->
+  <link rel="stylesheet" href="assets/enhance.css">
+  <script src="assets/enhance.js"></script>
+
   <!-- JSON-LD: Person -->
   <script type="application/ld+json">
   {
