@@ -1,0 +1,118 @@
+/* Rahil Sahu — matrix.html: oracle (LLM) uplink panel.
+ * Separate sheet so the key UI stays decoupled from the main stylesheet.
+ * CSP-safe: no inline styles needed anywhere. */
+
+.mx-keypanel {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem;
+  background: rgba(0, 0, 0, 0.72);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+}
+
+.mx-keypanel[hidden] { display: none; }
+
+/* The UA [hidden] style loses to our label display rule — re-assert it. */
+.mx-keycard [hidden] { display: none !important; }
+
+.mx-keycard {
+  width: min(92vw, 430px);
+  background: #050805;
+  border: 1px solid rgba(88, 196, 122, 0.55);
+  border-radius: 10px;
+  box-shadow: 0 0 42px rgba(88, 196, 122, 0.16), 0 18px 60px rgba(0, 0, 0, 0.6);
+  padding: 1.4rem 1.4rem 1.2rem;
+  color: #9fe8b8;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+.mx-keycard h2 {
+  margin: 0 0 0.4rem;
+  font-size: 1.05rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #58c47a;
+}
+
+.mx-keynote {
+  margin: 0 0 1rem;
+  font-size: 0.78rem;
+  line-height: 1.55;
+  color: #6fae83;
+}
+
+.mx-keycard label {
+  display: block;
+  margin: 0 0 0.8rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #6fae83;
+}
+
+.mx-keycard input[type="text"],
+.mx-keycard input[type="password"],
+.mx-keycard select {
+  display: block;
+  width: 100%;
+  margin-top: 0.35rem;
+  padding: 0.55rem 0.65rem;
+  background: #020402;
+  border: 1px solid rgba(88, 196, 122, 0.4);
+  border-radius: 6px;
+  color: #c9f5d8;
+  font: inherit;
+  font-size: 0.85rem;
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+.mx-keycard input:focus,
+.mx-keycard select:focus {
+  outline: none;
+  border-color: #58c47a;
+  box-shadow: 0 0 0 2px rgba(88, 196, 122, 0.25);
+}
+
+.mx-keyrow {
+  display: flex;
+  gap: 0.6rem;
+  margin-top: 1.1rem;
+  flex-wrap: wrap;
+}
+
+.mx-keycard button {
+  font: inherit;
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.55rem 0.95rem;
+  border-radius: 6px;
+  cursor: pointer;
+  border: 1px solid rgba(88, 196, 122, 0.55);
+  background: rgba(88, 196, 122, 0.12);
+  color: #9fe8b8;
+}
+
+.mx-keycard button:hover { background: rgba(88, 196, 122, 0.22); }
+
+.mx-keycard button.mx-key-danger {
+  border-color: rgba(200, 90, 90, 0.5);
+  background: rgba(200, 90, 90, 0.08);
+  color: #d89898;
+  margin-left: auto;
+}
+
+.mx-keystatus {
+  margin: 0.9rem 0 0;
+  font-size: 0.78rem;
+  min-height: 1.2em;
+  color: #9fe8b8;
+}
+
+.mx-keystatus.is-err { color: #e08a8a; }

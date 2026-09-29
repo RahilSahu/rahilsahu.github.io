@@ -140,7 +140,7 @@
   }
 
   /* =============================================================
-     2 · Book cover with a page turn
+     2 · Book cover with a Duo-style unfold
      ============================================================= */
 
   function buildBook() {
@@ -148,7 +148,7 @@
     book.id = 'enhBook';
     book.setAttribute('role', 'dialog');
     book.setAttribute('aria-modal', 'true');
-    book.setAttribute('aria-label', 'Report cover — open to read the site');
+    book.setAttribute('aria-label', 'Report cover - open to read the site');
 
     var skip = el('button', 'enh-skip', 'Skip');
     skip.type = 'button';
@@ -156,36 +156,15 @@
     var stage = el('div', 'enh-stage');
     var body = el('div', 'enh-body');
 
-    /* --- page block behind the leaves --- */
-    var block = el('div', 'enh-block');
-    var bi = el('div', 'enh-block-inner');
-    bi.appendChild(el('p', 'enh-block-kicker', 'Section 00'));
-    bi.appendChild(el('p', 'enh-block-h', 'Engagement summary'));
-    var rules = el('div', 'enh-rules');
-    for (var r = 0; r < 5; r++) rules.appendChild(el('span'));
-    bi.appendChild(rules);
-    block.appendChild(bi);
-
-    /* --- flyleaf (turns second, slightly behind) --- */
-    var fly = el('div', 'enh-leaf enh-leaf-fly');
-    fly.setAttribute('aria-hidden', 'true');
-    fly.appendChild(el('div', 'enh-face enh-fly-front'));
-    var flyBack = el('div', 'enh-face enh-face-back enh-fly-back');
-    fly.appendChild(flyBack);
-
-    /* --- hard cover (turns first) --- */
-    var cover = el('div', 'enh-leaf enh-leaf-cover');
-
+    /* Front face: warm ivory paper report cover */
     var front = el('div', 'enh-face enh-cover');
-    front.appendChild(el('div', 'enh-band', 'Confidential — for the named recipient'));
+    front.appendChild(el('div', 'enh-band', 'Confidential - for the named recipient'));
     front.appendChild(el('div', 'enh-foil'));
     front.appendChild(el('div', 'enh-monogram', '[rs]'));
     front.appendChild(el('p', 'enh-doctype', 'Security assessment report'));
-
-    var h = el('h1', 'enh-name', 'Rahil Sahu');
-    front.appendChild(h);
+    front.appendChild(el('h1', 'enh-name', 'Rahil Sahu'));
     front.appendChild(el('p', 'enh-role',
-      'Application Security Engineer — VAPT, product security and security architecture review.'));
+      'Application Security Engineer · VAPT, product security and security architecture review.'));
 
     var stamp = el('div', 'enh-stamp');
     stamp.setAttribute('aria-hidden', 'true');
@@ -201,7 +180,7 @@
       ['Ref', CONFIG.reference],
       ['Scope', 'Web · API · Mobile · Network · Cloud'],
       ['Issued', CONFIG.issued],
-      ['Pages', '11 sections']
+      ['Pages', '10 sections']
     ].forEach(function (row) {
       meta.appendChild(el('dt', null, row[0]));
       meta.appendChild(el('dd', null, row[1]));
@@ -212,7 +191,7 @@
     barcode.setAttribute('aria-hidden', 'true');
     front.appendChild(barcode);
 
-    /* inside of the cover, visible while it turns */
+    /* Inside face: glimpsed as the halves swing open */
     var inside = el('div', 'enh-face enh-face-back enh-inside');
     inside.setAttribute('aria-hidden', 'true');
     inside.appendChild(el('h3', null, 'Distribution'));
@@ -220,16 +199,8 @@
     CONFIG.distribution.forEach(function (d) { ul.appendChild(el('li', null, d)); });
     inside.appendChild(ul);
 
-    cover.appendChild(front);
-    cover.appendChild(inside);
-
-    var spine = el('div', 'enh-spine');
-    spine.setAttribute('aria-hidden', 'true');
-
-    body.appendChild(block);
-    body.appendChild(fly);
-    body.appendChild(cover);
-    body.appendChild(spine);
+    body.appendChild(front);
+    body.appendChild(inside);
     stage.appendChild(body);
 
     var controls = el('div', 'enh-controls');
@@ -243,46 +214,138 @@
     book.appendChild(controls);
     document.body.appendChild(book);
 
-    return { book: book, stage: stage, openBtn: openBtn, skip: skip, front: front };
+    return { book: book, stage: stage, body: body, openBtn: openBtn, skip: skip };
   }
 
   /* =============================================================
-     3 · Opening sequence
+     3 · Opening sequence (Duo unfold)
      ============================================================= */
 
   function wireCover(parts, onDone) {
     var opened = false;
     var timer = null;
+    /* One continuous motion: decisive start, soft landing. */
+    var EASE = 'cubic-bezier(.3,.8,.3,1)';
+    var DUR = 1200; /* ms for the unfold */
 
-    function finish(instant) {
-      root.classList.remove('enh-boot', 'enh-locked');
+    function finish() {
+      root.classList.remove('enh-boot', 'enh-locked', 'enh-unfolding');
       root.classList.add('enh-reveal');
-      parts.book.classList.add('enh-dismiss');
-
+      var ov = document.querySelector('.enh-unfold');
+      if (parts.book.parentNode) parts.book.parentNode.removeChild(parts.book);
+      if (ov && ov.parentNode) ov.parentNode.removeChild(ov);
+      /* Let the sheet-in settle fully before dropping the reveal class. */
       window.setTimeout(function () {
-        if (parts.book.parentNode) parts.book.parentNode.removeChild(parts.book);
         root.classList.remove('enh-reveal');
         if (typeof onDone === 'function') onDone();
-      }, instant ? 160 : 1000);
+      }, 950);
+    }
+
+    /* iPhone Duo-style unfold: the cover splits at its vertical hinge and
+       both halves swing open in 3D while blurring away; the backdrop lets
+       go at the same time so the site is revealed from behind the opening
+       cover. transform / filter / opacity only — no layout properties. */
+    function unfold() {
+      var rect = parts.body.getBoundingClientRect();
+      var W = rect.width, H = rect.height, L = rect.left, T = rect.top;
+      if (!(W > 0 && H > 0)) { fadeOut(); return; }
+
+      var ov = el('div', 'enh-unfold');
+      ov.setAttribute('aria-hidden', 'true');
+
+      function half(side) {
+        var h = el('div', 'enh-half enh-half-' + side);
+        h.style.left = (side === 'l' ? L : L + W / 2) + 'px';
+        h.style.top = T + 'px';
+        h.style.width = (W / 2) + 'px';
+        h.style.height = H + 'px';
+        var inner = el('div', 'enh-half-inner');
+        inner.style.width = W + 'px';
+        inner.style.height = H + 'px';
+        if (side === 'r') inner.style.marginLeft = (-W / 2) + 'px';
+        inner.appendChild(parts.body.cloneNode(true));
+        h.appendChild(inner);
+        ov.appendChild(h);
+        return h;
+      }
+
+      var left = half('l');
+      var right = half('r');
+
+      /* Glass hinge-glow: a blurred white/gold seam that flares as the
+         halves part, then lets go. */
+      var hinge = el('div', 'enh-hinge');
+      hinge.style.left = (L + W / 2 - 2) + 'px';
+      hinge.style.top = T + 'px';
+      hinge.style.height = H + 'px';
+      ov.appendChild(hinge);
+
+      document.body.appendChild(ov);
+      /* Hide the original so the clones take over seamlessly. The site
+         itself becomes visible now so it is revealed from behind the
+         opening cover as the backdrop fades. */
+      parts.body.style.visibility = 'hidden';
+      root.classList.add('enh-unfolding');
+      /* The site settles into place behind the opening cover, timed so it
+         has landed by the moment the backdrop lets go. */
+      root.classList.add('enh-reveal');
+      /* One read so everything is laid out before the first frame. */
+      void ov.offsetWidth;
+
+      var aL = left.animate([
+        { transform: 'rotateY(0deg)', filter: 'blur(0px)', opacity: 1 },
+        { transform: 'rotateY(-150deg)', filter: 'blur(10px)', opacity: 1, offset: 0.7 },
+        { transform: 'rotateY(-150deg)', filter: 'blur(10px)', opacity: 0 }
+      ], { duration: DUR, easing: EASE, fill: 'forwards' });
+
+      var aR = right.animate([
+        { transform: 'rotateY(0deg)', filter: 'blur(0px)', opacity: 1 },
+        { transform: 'rotateY(150deg)', filter: 'blur(10px)', opacity: 1, offset: 0.7 },
+        { transform: 'rotateY(150deg)', filter: 'blur(10px)', opacity: 0 }
+      ], { duration: DUR, easing: EASE, fill: 'forwards' });
+
+      var aH = hinge.animate([
+        { opacity: 0, transform: 'scaleY(0.94)' },
+        { opacity: 0.9, transform: 'scaleY(1.02)', offset: 0.35 },
+        { opacity: 0, transform: 'scaleY(1.06)' }
+      ], { duration: DUR, easing: 'ease-out', fill: 'forwards' });
+
+      /* The backdrop fades during the swing so the site appears from
+         behind the opening cover, not after it. */
+      var aB = parts.book.animate(
+        { opacity: [1, 0] },
+        { duration: Math.round(DUR * 0.85), easing: 'ease-out', fill: 'forwards' }
+      );
+
+      Promise.all([aL.finished, aR.finished, aH.finished, aB.finished])
+        .then(finish, finish);
+    }
+
+    /* Reduced motion (and Skip): a plain 250ms fade, no 3D. */
+    function fadeOut() {
+      var a = parts.book.animate(
+        { opacity: [1, 0] },
+        { duration: 250, easing: 'ease-out', fill: 'forwards' }
+      );
+      a.finished.then(finish, finish);
+    }
+
+    function teardown() {
+      document.removeEventListener('keydown', onKey);
+      window.removeEventListener('wheel', onGesture);
+      window.removeEventListener('touchmove', onGesture);
+      try {
+        window.sessionStorage.setItem('enh-cover', '1');
+      } catch (e) { /* ignore */ }
     }
 
     function open() {
       if (opened) return;
       opened = true;
       if (timer) window.clearTimeout(timer);
-
-      try {
-        window.sessionStorage.setItem('enh-cover', '1');
-      } catch (e) { /* ignore */ }
-
-      document.removeEventListener('keydown', onKey);
-      window.removeEventListener('wheel', onGesture);
-      window.removeEventListener('touchmove', onGesture);
-
-      parts.book.classList.add('enh-open');
-      /* Reveal the site just past the halfway point of the turn, so it
-         appears from behind the cover rather than after it. */
-      window.setTimeout(function () { finish(false); }, reduced ? 60 : 820);
+      teardown();
+      if (reduced) fadeOut();
+      else unfold();
     }
 
     function onKey(e) {
@@ -299,9 +362,11 @@
     parts.stage.addEventListener('click', open);
     parts.skip.addEventListener('click', function (e) {
       e.stopPropagation();
+      if (opened) return;
       opened = true;
-      parts.book.classList.add('enh-open');
-      finish(true);
+      if (timer) window.clearTimeout(timer);
+      teardown();
+      fadeOut();
     });
 
     document.addEventListener('keydown', onKey);

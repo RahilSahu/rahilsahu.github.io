@@ -11,12 +11,13 @@
   <link rel="canonical" href="https://rahilsahu.github.io/matrix.html">
 
   <!-- CSP without inline-script hash: this page ships zero inline scripts or styles. -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'none'; frame-ancestors 'none'; object-src 'none'; upgrade-insecure-requests">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://api.groq.com https://openrouter.ai; base-uri 'self'; form-action 'none'; frame-ancestors 'none'; object-src 'none'; upgrade-insecure-requests">
   <meta http-equiv="X-Content-Type-Options" content="nosniff">
   <meta name="referrer" content="strict-origin-when-cross-origin">
 
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="assets/styles.css">
+  <link rel="stylesheet" href="assets/matrix-assistant.css">
 </head>
 
 <body class="matrix-page">
@@ -55,7 +56,8 @@
   <div class="mx-gate" id="mxGate" role="dialog" aria-modal="true" aria-labelledby="mxGateTitle">
     <h1 id="mxGateTitle">WAKE UP, NEO…</h1>
     <p>The Matrix has you. Follow the white rabbit.<br>
-    Step inside for a terminal session rendered entirely in your browser &mdash; no servers, no tracking.</p>
+    Step inside for a terminal session rendered in your browser &mdash; no tracking.<br>
+    Type <span class="mx-prompt">ask</span> to question the oracle (it needs a key, and answers five times per session).</p>
     <button class="mx-jackin" id="mxJackin" type="button">JACK IN</button>
     <p><a href="index.html" class="mx-bluepill">…or take the blue pill and go home</a></p>
   </div>
@@ -73,6 +75,35 @@
       </section>
     </div>
   </main>
+
+  <div class="mx-keypanel" id="mxKeypanel" hidden>
+    <div class="mx-keycard" role="dialog" aria-modal="true" aria-labelledby="mxKeyTitle">
+      <h2 id="mxKeyTitle">oracle uplink</h2>
+      <p class="mx-keynote">Paste a key to wake the oracle. It lives only in this tab&rsquo;s memory &mdash; never written to disk, never in the page source, and sent only to the API you choose below.</p>
+      <label>provider
+        <select id="mxProvider">
+          <option value="https://api.groq.com/openai/v1">Groq</option>
+          <option value="https://openrouter.ai/api/v1">OpenRouter</option>
+          <option value="custom">Custom OpenAI-compatible&hellip;</option>
+        </select>
+      </label>
+      <label id="mxBaseWrap" hidden>base url
+        <input id="mxBase" type="text" autocomplete="off" spellcheck="false" placeholder="https://your-host/v1">
+      </label>
+      <label>model
+        <input id="mxModel" type="text" autocomplete="off" spellcheck="false" placeholder="model id for your key">
+      </label>
+      <label>api key
+        <input id="mxKey" type="password" autocomplete="off" spellcheck="false" placeholder="paste key — it never leaves this tab">
+      </label>
+      <div class="mx-keyrow">
+        <button id="mxKeySave" type="button">connect</button>
+        <button id="mxKeyCancel" type="button">cancel</button>
+        <button id="mxKeyForget" type="button" class="mx-key-danger">forget key</button>
+      </div>
+      <p class="mx-keystatus" id="mxKeyStatus" role="status"></p>
+    </div>
+  </div>
 
   <script src="assets/matrix.js" defer></script>
 </body>
