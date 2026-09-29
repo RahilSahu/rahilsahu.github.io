@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="en" data-theme="auto">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+  <title>Process &amp; workflow automation with AI — Rahil Sahu</title>
+  <meta name="description" content="How Rahil Sahu uses AI-assisted automation for TPRM, VAPT, AppSec, email and social media workflows — always with a human review gate before anything goes out.">
+  <meta name="author" content="Rahil Sahu">
+  <link rel="canonical" href="https://rahilsahu.github.io/automation.html">
+
+  <!-- CSP without inline-script hash: this page ships zero inline scripts or styles. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; base-uri 'self'; form-action mailto:; frame-ancestors 'none'; object-src 'none'; upgrade-insecure-requests">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+
+<body>
+  <div id="veil" aria-hidden="true"><span class="veil-mark">[rs]</span></div>
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="index.html" aria-label="Rahil Sahu — home">
+        <span class="brand-mark" aria-hidden="true">
+          <span class="brand-bracket">[</span><span class="brand-initials">rs</span><span class="brand-bracket">]</span>
+        </span>
+        <span class="brand-text">
+          <span class="brand-name">Rahil Sahu</span>
+          <span class="brand-role">Application Security Engineer</span>
+        </span>
+      </a>
+
+      <nav class="site-nav" id="primaryNav" aria-label="Primary">
+        <a href="index.html">Home</a>
+        <a href="#tprm">TPRM</a>
+        <a href="#vapt">VAPT</a>
+        <a href="#appsec">AppSec</a>
+        <a href="#email">Email</a>
+        <a href="#social">Social</a>
+        <a href="#principles">Principles</a>
+        <a href="matrix.html">Matrix</a>
+      </nav>
+
+      <div class="header-actions">
+        <a class="btn btn-ghost btn-small" href="index.html#engagement">Contact</a>
+        <button class="nav-toggle" id="navToggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="primaryNav">
+          <span aria-hidden="true"></span>
+        </button>
+        <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle colour theme" aria-pressed="false">
+          <span class="theme-toggle-track" aria-hidden="true"></span>
+          <span class="theme-toggle-label" data-label-light="light" data-label-dark="dark">auto</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <section class="section page-hero" aria-labelledby="auto-title">
+      <div class="wrap">
+        <p class="breadcrumb"><a href="index.html">home</a> / automation</p>
+        <p class="section-tag"><span class="section-tag-num">A1</span> process &amp; workflow automation with AI</p>
+        <h1 class="section-title" id="auto-title">Automate the pipeline, keep the human in the loop.</h1>
+        <p class="section-lead">
+          AI does the repetitive, high-volume work &mdash; ingesting documents, enumerating scope, drafting reports &mdash;
+          and a person makes every decision that matters. Every pipeline below ends at a review gate:
+          nothing goes to a client, a team, or the public without human approval.
+        </p>
+      </div>
+    </section>
+
+    <section class="section" aria-label="Automation pipelines">
+      <div class="wrap">
+        <div class="pipe-grid">
+
+          <article class="pipe-card" id="tprm">
+            <span class="pipe-kind">grc / tprm</span>
+            <h3>Security questionnaire automation</h3>
+            <p>Incoming vendor questionnaires and client security assessments are ingested, parsed question by question,
+            mapped against our ISO 27001 control set, and matched to the relevant evidence documents. Draft answers are
+            assembled from those documents &mdash; grounded in actual evidence, never invented &mdash; and the completed
+            draft lands with me for review before anything leaves the building.</p>
+            <div class="pipe" aria-label="Pipeline: ingest, map, draft, review, send">
+              <div class="pipe-node"><strong>Ingest</strong><span class="pipe-tool">questionnaire intake</span></div>
+              <div class="pipe-link" aria-hidden="true"></div>
+              <div class="pipe-node"><strong>Map</strong><span class="pipe-tool">ISO 27001 controls</span></div>
+              <div class="pipe-link" aria-hidden="true"></div>
+              <div class="pipe-node"><strong>Draft</strong><span class="pipe-tool">evidence-grounded</span></div>
+              <div class="pipe-link" aria-hidden="true"></div>
+              <div class="pipe-node is-gate"><strong>Human review</strong><span class="pipe-tool">approve / edit</span></div>
+              <div class="pipe-link" aria-hidden="true"></div>
+              <div class="pipe-node"><strong>Send</strong></div>
+            </div>
+            <p class="gate-note"><strong>Gate:</strong> answers are only as good as their evidence. Anything unanswerable from documents goes back as a named-owner question, not a guess.</p>
+          </article>
+
+          <article class="pipe-card" id="vapt">
+            <span class="pipe-kind">offensive security</span>
+            <h3>VAPT pipeline automation</h3>
+            <p>Recon runs as a repeatable pipeline: subdomain enumeration, live-host probing, templated vulnerability
+            scanning, and structured finding intake. The machine handles the breadth; the interesting part &mdash;
+            manual exploitation, chaining, and business-logic flaws &mdash; stays human. Reports are drafted from
+            validated findings, and retests are tracked until closure.</p>
+            <div class="pipe" aria-label="Pipeline: recon, scan, validate, report, retest">
+              <div class="pipe-node"><strong>Recon</strong><span class="pipe-tool">Subfinder · Amass</span></div>
+              <div class="pipe-link" aria-hidden="true"></div>
+              <div class="pipe-node"><strong>Probe</strong><span class="pipe-tool">HTTPx · Nmap</span></div>
+              <div class="pipe-link" aria-hidden="true"></div>
+              <div class="pipe-node"><strong>Scan</strong><span class="pipe-tool">Nuclei · Burp</span></div>
+              <div class="pipe-link" aria-hidden="true"></div>
+              <div class="pipe-node is-gate"><strong>Manual validation</strong><span class="pipe-tool">exploit · chain</span></div>
+              <div class="pipe-link" aria-hidden="true"></div>
+              <div class="pipe-node"><strong>Report · retest</strong><span class="pipe-tool">DefectDojo</span></div>
+            </div>
+            <p class="gate-note"><strong>Gate:</strong> scanner output is untrusted input until a human confirms exploitability. No scanner finding ships without validation.</p>
+          </article>
+
+          <article class="pipe-card" id="appsec">
+            <span class="pipe-kind">devsecops</span>
+            <h3>AppSec / DevSecOps automation</h3>
+            <p>SAST, DAST and SCA run inside CI on every pull request so defects surface at code time, not audit time.
+            Findings sync into DefectDojo, where they are deduplicated, assigned to owners, and tracked against
+            remediation SLAs. Developers get PR-ready fixes; I get a single tracked workflow from detection to verified closure.</p>
+            <div class="pipe" aria-label="Pipeline: CI scan, PR findings, sync, SLA tracking">
+              <div class="pipe-node"><strong>CI scan</strong><span class="pipe-tool">SonarQube · Snyk · CodeAnt.ai</span></div>
+              <div class="pipe-link" aria-hidden="true"></div>
+              <div class="pipe-node"><strong>PR findings</strong><span class="pipe-tool">inline fixes</span></div>
+              <div class="pipe-link" aria-hidden="true"></div>
+              <div class="pipe-node"><strong>Sync</strong><span class="pipe-tool">DefectDojo</span></div>
+              <div class="pipe-link" aria-hidden="true"></div>
+              <div class="pipe-node"><strong>SLA tracking</strong><span class="pipe-tool">owners · retest</span></div>
+            </div>
+            <p class="gate-note"><strong>Gate:</strong> false-positive triage stays manual. A scanner does not get to burn developer trust on bad findings.</p>
+          </article>
+
+          <article class="pipe-card" id="email">
+            <span class="pipe-kind">comms</span>
+            <h3>Email triage &amp; drafting</h3>
+            <p>Inbox automation sorts and labels incoming mail, drafts replies for routine requests, and schedules
+            follow-ups so threads do not die. Every draft is exactly that &mdash; a draft. Nothing sends without a
+            human reading it first and hitting send.</p>
+            <div class="pipe" aria-label="Pipeline: triage, draft, schedule, human send">
+              <div class="pipe-node"><strong>Triage</strong><span class="pipe-tool">label · sort</span></div>
+              <div class="pipe-link" aria-hidden="true"></div>
+              <div class="pipe-node"><strong>Draft</strong><span class="pipe-tool">routine replies</span></div>
+              <div class="pipe-link" aria-hidden="true"></div>
+              <div class="pipe-node"><strong>Schedule</strong><span class="pipe-tool">follow-ups</span></div>
+              <div class="pipe-link" aria-hidden="true"></div>
+              <div class="pipe-node is-gate"><strong>Human sends</strong><span class="pipe-tool">every message</span></div>
+            </div>
+            <p class="gate-note"><strong>Gate:</strong> no autonomous sending. The automation prepares; the human approves.</p>
+          </article>
+
+          <article class="pipe-card" id="social">
+            <span class="pipe-kind">content operations</span>
+            <h3>Social media pipeline</h3>
+            <p>A full content pipeline powers my news page: topic research, scripting, image generation, captions and
+            hashtags, then scheduled multi-post publishing across the day. It runs the Varta Samkara Instagram news
+            page on a multi-post daily schedule &mdash; reels, stories and posts, each with sound design and
+            8–15 relevant hashtags for reach.</p>
+            <div class="pipe" aria-label="Pipeline: research, script, media, captions, publish">
+              <div class="pipe-node"><strong>Research</strong><span class="pipe-tool">trending topics</span></div>
+              <div class="pipe-link" aria-hidden="true"></div>
+              <div class="pipe-node"><strong>Script</strong><span class="pipe-tool">narrative · voice</span></div>
+              <div class="pipe-link" aria-hidden="true"></div>
+              <div class="pipe-node"><strong>Media</strong><span class="pipe-tool">images · reels</span></div>
+              <div class="pipe-link" aria-hidden="true"></div>
+              <div class="pipe-node"><strong>Captions</strong><span class="pipe-tool">hashtags</span></div>
+              <div class="pipe-link" aria-hidden="true"></div>
+              <div class="pipe-node"><strong>Schedule</strong><span class="pipe-tool">multi-post daily</span></div>
+            </div>
+            <p class="gate-note"><strong>Gate:</strong> claim-bearing content is verified against sources before it publishes &mdash; no unverifiable claims go out under my name.</p>
+          </article>
+
+          <article class="pipe-card" id="more">
+            <span class="pipe-kind">and more</span>
+            <h3>Audit evidence &amp; phishing ops</h3>
+            <p>Audit season means collecting the same evidence from the same systems every cycle; that collection is
+            scripted, with gap reports generated automatically. Phishing simulations run on a managed schedule with
+            GoPhish &mdash; campaign setup, target lists, template rotation, and result dashboards &mdash; feeding
+            straight into awareness training for the teams that clicked.</p>
+            <div class="pipe" aria-label="Pipeline: collect, gap-check, campaign, report">
+              <div class="pipe-node"><strong>Collect</strong><span class="pipe-tool">audit evidence</span></div>
+              <div class="pipe-link" aria-hidden="true"></div>
+              <div class="pipe-node"><strong>Gap check</strong><span class="pipe-tool">control mapping</span></div>
+              <div class="pipe-link" aria-hidden="true"></div>
+              <div class="pipe-node"><strong>Campaign</strong><span class="pipe-tool">GoPhish</span></div>
+              <div class="pipe-link" aria-hidden="true"></div>
+              <div class="pipe-node"><strong>Report</strong><span class="pipe-tool">training input</span></div>
+            </div>
+            <p class="gate-note"><strong>Gate:</strong> simulation targets and templates are approved before launch. Phishing is a training tool, not a surprise attack.</p>
+          </article>
+
+        </div>
+
+        <aside class="principles" id="principles" aria-labelledby="principles-title">
+          <h3 id="principles-title">Operating principles</h3>
+          <ul>
+            <li><strong>Human-in-the-loop.</strong> Every pipeline ends at a review gate. AI proposes; a person disposes.</li>
+            <li><strong>Evidence-grounded.</strong> Drafts cite documents, controls and tooling. If it cannot be sourced, it is not written.</li>
+            <li><strong>No autonomous sending.</strong> No email, post, answer or campaign leaves without explicit human approval.</li>
+            <li><strong>Transparent about automation.</strong> Where it matters, recipients know a draft was machine-assisted.</li>
+            <li><strong>Boring before clever.</strong> Automate the repeatable first; keep the novel, adversarial work human.</li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <div class="footer-col">
+        <p class="footer-title">Rahil Sahu</p>
+        <p class="footer-sub">Application Security Engineer / Indore, India</p>
+      </div>
+      <div class="footer-col">
+        <p class="footer-title">Links</p>
+        <ul class="footer-links">
+          <li><a href="resume.pdf" download="Rahil_Sahu_Resume.pdf">Résumé (PDF)</a></li>
+          <li><a href="https://www.linkedin.com/in/rahilsahu" rel="noopener noreferrer" target="_blank">LinkedIn</a></li>
+          <li><a href="https://github.com/RahilSahu" rel="noopener noreferrer" target="_blank">GitHub</a></li>
+          <li><a href="mailto:rahilsahu2000@gmail.com">Email</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <p class="footer-title">Site</p>
+        <ul class="footer-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="automation.html">AI workflow automation</a></li>
+          <li><a href="matrix.html">Enter the Matrix</a></li>
+          <li><a href="/.well-known/security.txt">security.txt</a></li>
+          <li><a href="/sitemap.xml">sitemap</a></li>
+          <li><a href="/humans.txt">humans.txt</a></li>
+        </ul>
+        <p class="footer-note">Strict CSP / no cookies / no trackers / no third-party requests.</p>
+      </div>
+      <div class="footer-col">
+        <p class="footer-copy">© <span id="year">2026</span> Rahil Sahu. Built with intent.</p>
+      </div>
+    </div>
+  </footer>
+
+  <button id="toTop" type="button" aria-label="Back to top" title="Back to top">&uarr;</button>
+  <script src="assets/automation.js" defer></script>
+</body>
+</html>

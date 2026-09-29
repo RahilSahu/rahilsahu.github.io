@@ -201,7 +201,7 @@
       ['Ref', CONFIG.reference],
       ['Scope', 'Web · API · Mobile · Network · Cloud'],
       ['Issued', CONFIG.issued],
-      ['Pages', '10 sections']
+      ['Pages', '11 sections']
     ].forEach(function (row) {
       meta.appendChild(el('dt', null, row[0]));
       meta.appendChild(el('dd', null, row[1]));

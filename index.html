@@ -69,6 +69,7 @@
 </head>
 
 <body>
+  <div id="veil" aria-hidden="true"><span class="veil-mark">[rs]</span></div>
   <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
   <canvas id="matrixCanvas" class="matrix-canvas" aria-hidden="true"></canvas>
 
@@ -86,20 +87,26 @@
         </span>
       </a>
 
-      <nav class="site-nav" aria-label="Primary">
+      <nav class="site-nav" id="primaryNav" aria-label="Primary">
         <a href="#practice">Practice</a>
         <a href="#experience">Experience</a>
         <a href="#projects">Projects</a>
         <a href="#toolchain">Toolchain</a>
         <a href="#credentials">Credentials</a>
         <a href="#playground">Playground</a>
+        <a href="#fold">Fold</a>
         <a href="#learn">Learn</a>
         <a href="#ai-sec">AI</a>
         <a href="#engagement">Contact</a>
+        <a href="automation.html">Automation</a>
+        <a href="matrix.html">Matrix</a>
       </nav>
 
       <div class="header-actions">
         <a class="btn btn-ghost btn-small" href="resume.pdf" download="Rahil_Sahu_Resume.pdf">Résumé</a>
+        <button class="nav-toggle" id="navToggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="primaryNav">
+          <span aria-hidden="true"></span>
+        </button>
         <button class="fx-toggle" id="fxToggle" type="button" aria-label="Toggle matrix animation" aria-pressed="true" title="Toggle matrix rain">
           <span class="fx-dot" aria-hidden="true"></span>
           <span class="fx-label">fx</span>
@@ -776,10 +783,76 @@
       </div>
     </section>
 
-    <!-- ================== 07 · LEARN ================== -->
+    <!-- ================== 07 · FOLD LAB ================== -->
+    <section class="section" id="fold" aria-labelledby="fold-title">
+      <div class="wrap">
+        <p class="section-tag"><span class="section-tag-num">07</span> interactive</p>
+        <h2 class="section-title" id="fold-title">The fold transition, rebuilt &mdash; and improved.</h2>
+        <p class="section-lead">
+          The iPhone Duo's headline trick: unfold it and the cover screen's content blurs and dissolves as the hinge
+          moves, so the outer display reads like a small window into the inner one &mdash; one continuous surface, not
+          two screens pretending to be one. This demo recreates it in pure CSS, then goes one further: Apple's version
+          only plays when you move the hinge. This one is <em>scrubbable</em> &mdash; drag it, slide it, slow it down &mdash;
+          and you can compare it against the abrupt screen-switch the other foldables still do.
+        </p>
+
+        <div class="fold-wrap">
+          <div class="fold-stage" id="foldStage" role="group" aria-label="Fold transition demo. Drag sideways to scrub the hinge.">
+            <div class="fold-phone" aria-hidden="true">
+              <div class="fold-cover">
+                <div class="fold-cover-content">
+                  <p class="fold-date">Wed 30 Sep</p>
+                  <p class="fold-clock">09:41</p>
+                  <div class="fold-notif"><strong>Critical</strong> · Broken access control on <code>/admin/users/:id</code> &mdash; tap to open the full finding</div>
+                  <div class="fold-appbar">
+                    <span class="fold-app"></span><span class="fold-app"></span><span class="fold-app"></span><span class="fold-app"></span>
+                  </div>
+                </div>
+              </div>
+              <div class="fold-spine"></div>
+              <div class="fold-inner">
+                <div class="fold-inner-content">
+                  <div class="fold-finding">
+                    <h4>Critical · broken access control</h4>
+                    <p><code>GET /admin/users/:id</code> accepts an arbitrary user ID with no ownership check.
+                    Enumerating IDs returns PII for any account; a crafted request escalates to admin.
+                    Mapped to OWASP API 2023-01 (BOLA).</p>
+                    <p class="fold-expand-note">Cover screen notification, unfolded into the full finding.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <p class="fold-hint" id="foldHint">Drag the phone, use the slider, or press <span class="fold-kbd">←</span><span class="fold-kbd">→</span> on the slider.</p>
+          </div>
+
+          <div class="fold-controls">
+            <div class="fold-readout" role="status" aria-live="polite">
+              <span>hinge</span><span class="fold-angle" id="foldAngle">0&deg;</span><span>· <span id="foldState">folded</span></span>
+            </div>
+            <div class="fold-slider-row">
+              <span class="fold-slider-label" aria-hidden="true">0°</span>
+              <label class="visually-hidden" for="foldSlider">Hinge angle in degrees</label>
+              <input type="range" id="foldSlider" min="0" max="180" step="1" value="0" aria-describedby="foldHint">
+              <span class="fold-slider-label" aria-hidden="true">180°</span>
+            </div>
+            <div class="fold-btn-row">
+              <button class="btn btn-primary fold-autoplay-btn" id="foldAuto" type="button" aria-pressed="false">Unfold</button>
+              <button class="btn btn-ghost" id="foldSlow" type="button" aria-pressed="false">Slow motion</button>
+              <div class="fold-mode" role="group" aria-label="Transition mode">
+                <button type="button" id="modeDissolve" class="is-active" aria-pressed="true">Dissolve</button>
+                <button type="button" id="modeAbrupt" aria-pressed="false">Abrupt</button>
+              </div>
+            </div>
+            <p class="fold-hint"><strong>Dissolve</strong> — cover content blurs and dissolves through the hinge while the finding expands from the fold line. <strong>Abrupt</strong> — the stock foldable behaviour: hard cut at 90&deg;, no continuity.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================== 08 · LEARN ================== -->
     <section class="section section-alt" id="learn" aria-labelledby="learn-title">
       <div class="wrap">
-        <p class="section-tag"><span class="section-tag-num">07</span> resources</p>
+        <p class="section-tag"><span class="section-tag-num">08</span> resources</p>
         <h2 class="section-title" id="learn-title">Learn offensive security &mdash; free.</h2>
         <p class="section-lead">
           Curated free platforms that carried me through 4+ years of practice. Everything below is either free-tier or fully free. Pick one, don't jump between five.
@@ -879,11 +952,11 @@
       </div>
     </section>
 
-    <!-- ================== 08 · AI × SECURITY ================== -->
+    <!-- ================== 09 · AI × SECURITY ================== -->
     <section class="section section-ai" id="ai-sec" aria-labelledby="ai-sec-title">
       <canvas class="particles-canvas" id="particlesCanvas" aria-hidden="true"></canvas>
       <div class="wrap">
-        <p class="section-tag"><span class="section-tag-num">08</span> emerging</p>
+        <p class="section-tag"><span class="section-tag-num">09</span> emerging</p>
         <h2 class="section-title" id="ai-sec-title">AI &times; Security.</h2>
         <p class="section-lead">
           Where I'm spending research time: attacking LLM-integrated applications, and using AI to accelerate offensive workflows.
@@ -946,12 +1019,12 @@
       </div>
     </section>
 
-    <!-- ================== 09 · CONTACT ================== -->
+    <!-- ================== 10 · CONTACT ================== -->
     <section class="section" id="engagement" aria-labelledby="engagement-title">
       <div class="wrap engagement-grid">
 
         <div class="engagement-copy">
-          <p class="section-tag"><span class="section-tag-num">09</span> get in touch</p>
+          <p class="section-tag"><span class="section-tag-num">10</span> get in touch</p>
           <h2 class="section-title" id="engagement-title">Request an engagement.</h2>
           <p class="section-lead">
 
@@ -1058,17 +1131,22 @@
       <div class="footer-col">
         <p class="footer-title">Site</p>
         <ul class="footer-links">
+          <li><a href="automation.html">AI workflow automation</a></li>
+          <li><a href="matrix.html">Enter the Matrix</a></li>
           <li><a href="/.well-known/security.txt">security.txt</a></li>
           <li><a href="/sitemap.xml">sitemap</a></li>
           <li><a href="/humans.txt">humans.txt</a></li>
         </ul>
         <p class="footer-note">Strict CSP / no cookies / no trackers / no third-party requests.</p>
+        <p class="footer-note">Keyboard: <span class="fold-kbd">T</span> theme · <span class="fold-kbd">X</span> fx · <span class="fold-kbd">B</span> top</p>
       </div>
       <div class="footer-col">
         <p class="footer-copy">© <span id="year">2026</span> Rahil Sahu. Built with intent.</p>
       </div>
     </div>
   </footer>
+
+  <button id="toTop" type="button" aria-label="Back to top" title="Back to top">&uarr;</button>
 
   <script src="assets/main.js" defer></script>
   <!-- Contact form delivery. Must load after main.js. -->

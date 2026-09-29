@@ -814,4 +814,193 @@
   var yr = doc.getElementById('year');
   if (yr) yr.textContent = String(new Date().getFullYear());
 
+  /* -------------------- 24. Page-load veil -------------------- */
+  (function veil() {
+    if (reducedMotion) return;
+    var lift = function () { doc.body.classList.add('is-loaded'); };
+    if (doc.readyState === 'complete') { setTimeout(lift, 120); }
+    else { window.addEventListener('load', function () { setTimeout(lift, 120); }); }
+    /* Fallback so the veil can never trap the page */
+    setTimeout(lift, 2500);
+  })();
+
+  /* -------------------- 25. Reveal stagger -------------------- */
+  (function stagger() {
+    var targets = doc.querySelectorAll('.will-reveal');
+    for (var i = 0; i < targets.length; i++) {
+      targets[i].style.setProperty('--reveal-delay', ((i % 8) * 60) + 'ms');
+    }
+  })();
+
+  /* -------------------- 26. Hamburger nav -------------------- */
+  (function hamburger() {
+    var btn = doc.getElementById('navToggle');
+    var nav = doc.getElementById('primaryNav');
+    if (!btn || !nav) return;
+    function set(open) {
+      nav.classList.toggle('is-open', open);
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    }
+    btn.addEventListener('click', function () {
+      set(!nav.classList.contains('is-open'));
+    });
+    nav.addEventListener('click', function (e) {
+      if (e.target.tagName === 'A') set(false);
+    });
+    doc.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') set(false);
+    });
+  })();
+
+  /* -------------------- 27. Back to top -------------------- */
+  (function toTop() {
+    var btn = doc.getElementById('toTop');
+    if (!btn) return;
+    var ticking = false;
+    function update() {
+      var y = window.pageYOffset || doc.documentElement.scrollTop;
+      btn.classList.toggle('is-visible', y > 600);
+      ticking = false;
+    }
+    window.addEventListener('scroll', function () {
+      if (!ticking) { requestAnimationFrame(update); ticking = true; }
+    }, { passive: true });
+    btn.addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: reducedMotion ? 'auto' : 'smooth' });
+    });
+    update();
+  })();
+
+  /* -------------------- 28. Keyboard shortcuts (t / x / b) -------------------- */
+  (function shortcuts() {
+    doc.addEventListener('keydown', function (e) {
+      if (e.ctrlKey || e.metaKey || e.altKey) return;
+      var t = e.target;
+      if (t && /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName)) return;
+      var k = (e.key || '').toLowerCase();
+      if (k === 't') { var tb = doc.getElementById('themeToggle'); if (tb) tb.click(); }
+      else if (k === 'x') { var xb = doc.getElementById('fxToggle'); if (xb) xb.click(); }
+      else if (k === 'b') {
+        var top = doc.getElementById('toTop'); if (top) top.click();
+      }
+    });
+  })();
+
+  /* -------------------- 29. Fold transition lab -------------------- */
+  (function foldLab() {
+    var stage = doc.getElementById('foldStage');
+    var slider = doc.getElementById('foldSlider');
+    var angleEl = doc.getElementById('foldAngle');
+    var stateEl = doc.getElementById('foldState');
+    var autoBtn = doc.getElementById('foldAuto');
+    var slowBtn = doc.getElementById('foldSlow');
+    var mDissolve = doc.getElementById('modeDissolve');
+    var mAbrupt = doc.getElementById('modeAbrupt');
+    if (!stage || !slider) return;
+
+    var angle = 0, rafId = 0, target = 0, slow = false, playing = false;
+    var DUR = 900; /* ms for full fold at normal speed */
+
+    function state() {
+      if (angle < 30) return 'folded';
+      if (angle > 150) return 'open';
+      return 'in transit';
+    }
+
+    function render() {
+      var f = Math.max(0, Math.min(1, angle / 180));
+      stage.style.setProperty('--fold', f.toFixed(4));
+      slider.value = String(Math.round(angle));
+      angleEl.innerHTML = Math.round(angle) + '&deg;';
+      stateEl.textContent = state();
+      stage.classList.toggle('is-past-half', angle > 90);
+    }
+
+    function stop() {
+      playing = false;
+      if (rafId) { cancelAnimationFrame(rafId); rafId = 0; }
+      if (autoBtn) { autoBtn.textContent = target === 180 ? 'Unfold' : 'Fold'; autoBtn.setAttribute('aria-pressed', 'false'); }
+    }
+
+    function tick(t0, from, dur) {
+      function step(t) {
+        if (!playing) return;
+        var p = Math.min(1, (t - t0) / dur);
+        var eased = 1 - Math.pow(1 - p, 3);
+        angle = from + (target - from) * eased;
+        render();
+        if (p < 1) rafId = requestAnimationFrame(step);
+        else stop();
+      }
+      rafId = requestAnimationFrame(step);
+    }
+
+    function autoplay() {
+      if (reducedMotion) { /* scrub-only under reduced motion */
+        target = target === 180 ? 0 : 180;
+        angle = target; render(); return;
+      }
+      target = target === 180 ? 0 : 180;
+      playing = true;
+      if (autoBtn) {
+        autoBtn.textContent = target === 180 ? 'Folding…' : 'Unfolding…';
+        autoBtn.setAttribute('aria-pressed', 'true');
+      }
+      tick(performance.now(), angle, slow ? DUR * 3 : DUR);
+    }
+
+    slider.addEventListener('input', function () {
+      stop();
+      angle = parseFloat(slider.value) || 0;
+      target = angle >= 180 ? 180 : 0;
+      render();
+    });
+    if (autoBtn) autoBtn.addEventListener('click', autoplay);
+    if (slowBtn) slowBtn.addEventListener('click', function () {
+      slow = !slow;
+      slowBtn.setAttribute('aria-pressed', slow ? 'true' : 'false');
+      slowBtn.textContent = slow ? 'Slow motion: on' : 'Slow motion';
+    });
+
+    function setMode(abrupt) {
+      stage.classList.toggle('is-abrupt', abrupt);
+      if (mDissolve) { mDissolve.classList.toggle('is-active', !abrupt); mDissolve.setAttribute('aria-pressed', String(!abrupt)); }
+      if (mAbrupt) { mAbrupt.classList.toggle('is-active', abrupt); mAbrupt.setAttribute('aria-pressed', String(abrupt)); }
+      render();
+    }
+    if (mDissolve) mDissolve.addEventListener('click', function () { setMode(false); });
+    if (mAbrupt) mAbrupt.addEventListener('click', function () { setMode(true); });
+
+    /* Drag-to-scrub on the phone itself */
+    var dragging = false, startX = 0, startAngle = 0;
+    stage.addEventListener('pointerdown', function (e) {
+      dragging = true; startX = e.clientX; startAngle = angle;
+      stop();
+      stage.setPointerCapture && stage.setPointerCapture(e.pointerId);
+    });
+    stage.addEventListener('pointermove', function (e) {
+      if (!dragging) return;
+      var rect = stage.getBoundingClientRect();
+      var dx = e.clientX - startX;
+      angle = Math.max(0, Math.min(180, startAngle + (dx / rect.width) * 360));
+      target = angle >= 180 ? 180 : 0;
+      render();
+    });
+    function endDrag() { dragging = false; }
+    stage.addEventListener('pointerup', endDrag);
+    stage.addEventListener('pointercancel', endDrag);
+
+    /* Autoplay once when the lab scrolls into view (not under reduced motion) */
+    if (!reducedMotion && 'IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { autoplay(); io.disconnect(); }
+        });
+      }, { threshold: 0.45 });
+      io.observe(stage);
+    }
+
+    render();
+  })();
+
 })();

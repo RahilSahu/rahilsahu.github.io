@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en" data-theme="auto">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+  <title>Enter the Matrix — Rahil Sahu</title>
+  <meta name="description" content="An interactive Matrix-universe terminal: digital rain, an in-browser shell, and a way back out.">
+  <meta name="author" content="Rahil Sahu">
+  <meta name="robots" content="noindex">
+  <link rel="canonical" href="https://rahilsahu.github.io/matrix.html">
+
+  <!-- CSP without inline-script hash: this page ships zero inline scripts or styles. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'none'; frame-ancestors 'none'; object-src 'none'; upgrade-insecure-requests">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+
+<body class="matrix-page">
+  <noscript>
+    <div class="mx-fallback">
+      <p>This experience needs JavaScript — the rain and the terminal are rendered client-side.<br>
+      You can still <a href="index.html" class="mx-home-link">go back home</a>.</p>
+    </div>
+  </noscript>
+
+  <canvas class="mx-rain" id="mxRain" aria-hidden="true"></canvas>
+  <div class="mx-vignette" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="index.html" aria-label="Rahil Sahu — home">
+        <span class="brand-mark" aria-hidden="true">
+          <span class="brand-bracket">[</span><span class="brand-initials">rs</span><span class="brand-bracket">]</span>
+        </span>
+        <span class="brand-text">
+          <span class="brand-name">Rahil Sahu</span>
+          <span class="brand-role">Application Security Engineer</span>
+        </span>
+      </a>
+      <div class="header-actions">
+        <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle colour theme" aria-pressed="false">
+          <span class="theme-toggle-track" aria-hidden="true"></span>
+          <span class="theme-toggle-label" data-label-light="light" data-label-dark="dark">auto</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <a class="mx-exit" href="index.html">exit the matrix &uarr;</a>
+
+  <div class="mx-gate" id="mxGate" role="dialog" aria-modal="true" aria-labelledby="mxGateTitle">
+    <h1 id="mxGateTitle">WAKE UP, NEO…</h1>
+    <p>The Matrix has you. Follow the white rabbit.<br>
+    Step inside for a terminal session rendered entirely in your browser &mdash; no servers, no tracking.</p>
+    <button class="mx-jackin" id="mxJackin" type="button">JACK IN</button>
+    <p><a href="index.html" class="mx-bluepill">…or take the blue pill and go home</a></p>
+  </div>
+
+  <main id="main">
+    <div class="mx-term-wrap">
+      <section class="mx-term" aria-label="Matrix terminal">
+        <div class="mx-term-head"><span aria-hidden="true">● ● ●</span><span>neo@construct</span></div>
+        <div class="mx-term-body" id="mxOut" aria-live="polite"></div>
+        <div class="mx-term-row">
+          <span class="mx-prompt" aria-hidden="true">neo@construct:~$</span>
+          <label class="visually-hidden" for="mxIn">Terminal command</label>
+          <input class="mx-input" id="mxIn" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="type 'help'" disabled>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script src="assets/matrix.js" defer></script>
+</body>
+</html>
