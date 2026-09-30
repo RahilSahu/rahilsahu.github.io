@@ -448,6 +448,22 @@
     update();
   }
 
+  /* While the user scrolls, mark <html> so CSS can freeze the ambient
+     orb drift (see html.enh-scrolling .enh-orb). The mark is lifted
+     ~160ms after the last scroll event; the drift resumes where it
+     paused. Passive + timeout only: no layout work per event. */
+  function wireScrollIdle() {
+    var idle = null;
+    window.addEventListener('scroll', function () {
+      root.classList.add('enh-scrolling');
+      if (idle) clearTimeout(idle);
+      idle = setTimeout(function () {
+        root.classList.remove('enh-scrolling');
+        idle = null;
+      }, 160);
+    }, { passive: true });
+  }
+
   /* =============================================================
      5 · Gel-in reveals
      ============================================================= */
@@ -550,6 +566,7 @@
     buildAmbient();
     buildSvgDefs();
     wireHeaderState();
+    wireScrollIdle();
     wirePointerSheen();
 
     function afterCover() {

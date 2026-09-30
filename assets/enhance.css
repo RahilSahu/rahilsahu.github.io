@@ -657,6 +657,31 @@ html.enh-warp.enh-on .site-header {
   backdrop-filter: blur(var(--g-blur)) saturate(var(--g-sat)) brightness(var(--g-bright)) url(#enh-refract);
 }
 
+/* Touch devices: a live backdrop blur re-renders on every scroll frame and
+   mobile GPUs choke on it — that is the stutter. Keep the tint, border and
+   shadow language, just drop the blur. Desktop keeps the full glass. */
+@media (hover: none), (pointer: coarse) {
+  .enh-glass,
+  html.enh-on .site-header,
+  html.enh-on .proj-card,
+  html.enh-on .learn-card,
+  html.enh-on .ai-card,
+  html.enh-on .also-card,
+  html.enh-on .cred,
+  html.enh-on .ctf,
+  html.enh-on .metric,
+  html.enh-on .tool,
+  html.enh-on .form-field input,
+  html.enh-on .form-field select,
+  html.enh-on .form-field textarea,
+  html.enh-on .site-nav a:hover {
+    /* The enh-warp variant below has higher specificity; the !important
+       keeps this deliberate perf override winning on touch devices. */
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+  }
+}
+
 .enh-svgdefs { position: absolute; width: 0; height: 0; overflow: hidden; }
 
 /* =============================================================
@@ -711,6 +736,12 @@ html.enh-warp.enh-on .site-header {
   100% { transform: translate3d(8vw, -10vh, 0) scale(1.25); }
 }
 
+/* While the user is scrolling, freeze the ambient drift so the browser
+   isn't repainting huge blurred layers every frame. JS toggles the class
+   and removes it ~160ms after the last scroll event; the drift resumes
+   exactly where it paused. */
+html.enh-scrolling .enh-orb { animation-play-state: paused; }
+
 /* Blueprint grid — reads as an architecture drawing under the glass */
 .enh-grid {
   position: absolute;
@@ -729,11 +760,13 @@ html.enh-warp.enh-on .site-header {
   inset: 0;
   z-index: 60;
   pointer-events: none;
-  opacity: .18;
-  mix-blend-mode: overlay;
+  opacity: .12;
+  /* No mix-blend-mode: a fixed full-viewport blend layer forces the
+     compositor to re-blend the entire screen on every scroll frame,
+     which reads as shimmer/jank. Plain alpha grain costs far less. */
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
 }
-[data-theme="dark"] .enh-grain { opacity: .14; mix-blend-mode: soft-light; }
+[data-theme="dark"] .enh-grain { opacity: .1; }
 
 /* Cursor spotlight — pointer devices only */
 .enh-spot {
