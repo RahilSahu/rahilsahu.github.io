@@ -323,15 +323,32 @@
     }
   }
 
-  if (input) {
-    input.addEventListener('keydown', function (e) {
-      if (e.key === 'Enter') {
-        var v = input.value;
-        input.value = '';
-        run(v);
-      }
-    });
-  }
+  /* Submit via form (mobile keyboards) and via Enter key (desktop).
+     keydown preventDefault stops the implicit submission, so the
+     command never runs twice. */
+  (function termInput() {
+    var form = doc.getElementById('mxForm');
+    function submitCmd() {
+      var v = input.value;
+      input.value = '';
+      run(v);
+      try { input.focus({ preventScroll: true }); } catch (e) { input.focus(); }
+    }
+    if (form) {
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        submitCmd();
+      });
+    }
+    if (input) {
+      input.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.keyCode === 13) {
+          e.preventDefault();
+          submitCmd();
+        }
+      });
+    }
+  })();
 
   /* -------------------- 3. Entry gate -------------------- */
   var jackin = doc.getElementById('mxJackin');

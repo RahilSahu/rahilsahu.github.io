@@ -2359,6 +2359,7 @@ body { overflow-x: clip; max-width: 100%; }
   white-space: pre-wrap;
   word-break: break-word;
 }
+form.mx-term-row { margin: 0; }
 .mx-term-row { display: flex; gap: 0.6rem; align-items: baseline; padding: 0 1rem 1rem; }
 .mx-home-link { color: #7be495; }
 .mx-bluepill { color: #9fd8ae; }
@@ -2366,7 +2367,7 @@ body { overflow-x: clip; max-width: 100%; }
 .mx-input {
   flex: 1 1 auto; min-width: 0;
   background: transparent; border: 0; outline: none;
-  color: #eafff0; font: inherit;
+  color: #eafff0; font: inherit; font-size: 16px; /* >=16px stops iOS auto-zoom */
   min-height: 44px;
 }
 .mx-exit {
@@ -2662,12 +2663,13 @@ body.is-loaded #veil { opacity: 0; pointer-events: none; }
   white-space: pre-wrap;
   word-break: break-word;
 }
+form.mx-term-row { margin: 0; }
 .mx-term-row { display: flex; gap: 0.6rem; align-items: baseline; padding: 0 1rem 1rem; }
 .mx-prompt { color: #58c47a; flex: 0 0 auto; }
 .mx-input {
   flex: 1 1 auto; min-width: 0;
   background: transparent; border: 0; outline: none;
-  color: #eafff0; font: inherit;
+  color: #eafff0; font: inherit; font-size: 16px; /* >=16px stops iOS auto-zoom */
   min-height: 44px;
 }
 .mx-exit {

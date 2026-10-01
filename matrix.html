@@ -16,9 +16,9 @@
   <meta name="referrer" content="strict-origin-when-cross-origin">
 
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="assets/styles.css">
-  <link rel="stylesheet" href="assets/palette.css">
-  <link rel="stylesheet" href="assets/matrix-assistant.css">
+  <link rel="stylesheet" href="assets/styles.css?v=20261002b">
+  <link rel="stylesheet" href="assets/palette.css?v=20261002b">
+  <link rel="stylesheet" href="assets/matrix-assistant.css?v=20261002b">
 </head>
 
 <body class="matrix-page">
@@ -68,11 +68,13 @@
       <section class="mx-term" aria-label="Matrix terminal">
         <div class="mx-term-head"><span aria-hidden="true">● ● ●</span><span>neo@construct</span></div>
         <div class="mx-term-body" id="mxOut" aria-live="polite"></div>
-        <div class="mx-term-row">
+        <!-- Wrapped in a form so mobile keyboards reliably submit via the
+             action/Go key; the submit handler (not keydown) runs the command. -->
+        <form class="mx-term-row" id="mxForm" aria-label="Terminal command form">
           <span class="mx-prompt" aria-hidden="true">neo@construct:~$</span>
           <label class="visually-hidden" for="mxIn">Terminal command</label>
-          <input class="mx-input" id="mxIn" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="type 'help'" disabled>
-        </div>
+          <input class="mx-input" id="mxIn" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="type 'help'" enterkeyhint="go" disabled>
+        </form>
       </section>
     </div>
   </main>
@@ -106,7 +108,7 @@
     </div>
   </div>
 
-  <script src="assets/matrix.js" defer></script>
-  <script src="assets/palette.js" defer></script>
+  <script src="assets/matrix.js?v=20261002b" defer></script>
+  <script src="assets/palette.js?v=20261002b" defer></script>
 </body>
 </html>
