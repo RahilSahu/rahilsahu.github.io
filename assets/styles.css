@@ -2788,3 +2788,97 @@ body.is-loaded #veil { opacity: 0; pointer-events: none; }
   .pipe-link::after, .scroll-progress, .fx-toggle { display: none !important; }
   .principles { border: 1px solid #000; }
 }
+
+/* ============================================================
+   24 · GOD MODE — availability badge, severity bars, copy-email,
+   quick facts, sticky hire CTA
+   ============================================================ */
+
+/* Pulsing availability badge (hero) */
+.avail-badge {
+  display: inline-flex; align-items: center; gap: .55rem;
+  margin: .9rem 0 0; padding: .42rem .9rem;
+  border: 1px solid var(--line-strong); border-radius: 999px;
+  font-family: var(--font-mono); font-size: var(--step--1);
+  color: var(--ink); background: var(--surface);
+}
+.avail-dot {
+  width: .6rem; height: .6rem; border-radius: 50%;
+  background: #16A34A; flex: none;
+  box-shadow: 0 0 0 0 rgba(22,163,74,.55);
+  animation: avail-pulse 2.2s ease-out infinite;
+}
+@keyframes avail-pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(22,163,74,.55); }
+  70%  { box-shadow: 0 0 0 9px rgba(22,163,74,0); }
+  100% { box-shadow: 0 0 0 0 rgba(22,163,74,0); }
+}
+@media (prefers-reduced-motion: reduce) { .avail-dot { animation: none; } }
+
+/* Severity distribution bars (practice section) */
+.sevdist { margin: 2.4rem 0 0; max-width: 640px; }
+.sevdist-title {
+  font-family: var(--font-mono); font-size: var(--step--1);
+  color: var(--ink-muted); margin: 0 0 .9rem; text-transform: lowercase;
+}
+.sevdist-row {
+  display: grid; grid-template-columns: 110px 1fr 56px;
+  gap: .8rem; align-items: center; margin-bottom: .6rem;
+}
+.sevdist-label { font-size: var(--step--1); }
+.sevdist-bar { display: block; height: 10px; border-radius: 999px; background: var(--line); overflow: hidden; }
+.sevdist-fill { display: block; height: 100%; border-radius: 999px; }
+.sevdist-fill.sev-crit { background: var(--sev-crit); }
+.sevdist-fill.sev-high { background: var(--sev-high); }
+.sevdist-fill.sev-medlow { background: var(--sev-med); }
+/* Widths live in CSS (not inline styles) to respect the strict CSP. */
+.sevdist-fill.sev-w-crit { width: 12.3%; }
+.sevdist-fill.sev-w-high { width: 27.7%; }
+.sevdist-fill.sev-w-medlow { width: 60%; }
+.sevdist-num { font-family: var(--font-mono); font-size: var(--step--1); text-align: right; }
+
+/* Copy-email buttons (engagement section) */
+.copy-email {
+  font-family: var(--font-mono); font-size: var(--step--1);
+  margin-left: .6rem; padding: .2rem .55rem;
+  border: 1px solid var(--line-strong); border-radius: 6px;
+  background: transparent; color: var(--ink-muted); cursor: pointer;
+}
+.copy-email:hover { color: var(--accent); border-color: var(--accent); }
+.copy-email.is-done { color: #16A34A; border-color: #16A34A; }
+
+/* Quick facts reuse .contact-lines; breathing room when stacked */
+.quickfacts { margin-top: 1.4rem; }
+
+/* Sticky mobile hire CTA — desktop keeps the header actions */
+.hire-cta {
+  position: fixed; left: 50%; bottom: max(1rem, env(safe-area-inset-bottom));
+  transform: translate(-50%, 90px); z-index: 500;
+  padding: .8rem 2.4rem; border-radius: 999px;
+  background: var(--accent); color: var(--accent-ink);
+  font-weight: 600; text-decoration: none; white-space: nowrap;
+  box-shadow: 0 12px 30px -10px rgba(0,0,0,.45);
+  transition: transform .35s var(--ease);
+}
+.hire-cta.is-visible { transform: translate(-50%, 0); }
+@media (min-width: 861px) { .hire-cta { display: none; } }
+/* Off-screen helper for clipboard fallback — class-based for strict CSP */
+.clipboard-helper { position: fixed; opacity: 0; pointer-events: none; }
+
+@media print { .hire-cta, .avail-badge { display: none; } }
+
+/* Konami easter egg — toast + rain overdrive */
+.konami-toast {
+  position: fixed; left: 50%; bottom: 2rem; z-index: 950;
+  transform: translate(-50%, 16px);
+  background: #111; color: #fff;
+  padding: .7rem 1.2rem; border-radius: 999px;
+  font-family: var(--font-mono); font-size: .85rem;
+  box-shadow: 0 10px 30px rgba(0,0,0,.35);
+  opacity: 0; transition: opacity .3s ease, transform .3s ease;
+  pointer-events: none; white-space: nowrap;
+}
+.konami-toast.is-visible { opacity: 1; transform: translate(-50%, 0); }
+.matrix-canvas.matrix-overdrive { filter: brightness(1.7) saturate(1.5); }
+@media (prefers-reduced-motion: reduce) { .matrix-canvas.matrix-overdrive { filter: none; } }
+@media print { .konami-toast { display: none; } }

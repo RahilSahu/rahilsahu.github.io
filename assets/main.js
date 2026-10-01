@@ -886,4 +886,88 @@
     });
   })();
 
+  /* -------------------- 29. Copy-email buttons -------------------- */
+  (function copyEmail() {
+    var btns = doc.querySelectorAll('.copy-email');
+    if (!btns.length) return;
+    btns.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var val = btn.getAttribute('data-copy') || '';
+        if (!val) return;
+        function done() {
+          btn.classList.add('is-done');
+          var orig = btn.textContent;
+          btn.textContent = 'copied';
+          setTimeout(function () { btn.textContent = orig; btn.classList.remove('is-done'); }, 1600);
+        }
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(val).then(done, function () { fallback(); });
+        } else { fallback(); }
+        function fallback() {
+          var t = doc.createElement('textarea');
+          t.value = val; t.className = 'clipboard-helper';
+          doc.body.appendChild(t); t.select();
+          try { doc.execCommand('copy'); done(); } catch (e) {}
+          doc.body.removeChild(t);
+        }
+      });
+    });
+  })();
+
+  /* -------------------- 30. Sticky mobile hire CTA -------------------- */
+  (function hireCta() {
+    var cta = doc.getElementById('hireCta');
+    var target = doc.getElementById('engagement');
+    if (!cta) return;
+    var nearContact = false;
+    if (target && 'IntersectionObserver' in window) {
+      new IntersectionObserver(function (entries) {
+        nearContact = entries[0].isIntersecting;
+        update();
+      }, { threshold: 0.08 }).observe(target);
+    }
+    var ticking = false;
+    function update() {
+      var y = window.pageYOffset || doc.documentElement.scrollTop;
+      cta.classList.toggle('is-visible', y > 600 && !nearContact);
+      ticking = false;
+    }
+    window.addEventListener('scroll', function () {
+      if (!ticking) { requestAnimationFrame(update); ticking = true; }
+    }, { passive: true });
+    update();
+  })();
+
+  /* -------------------- 31. Konami easter egg -------------------- */
+  (function konami() {
+    var seq = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+    var pos = 0;
+    var canvas = doc.getElementById('matrixCanvas');
+    function toast(msg) {
+      var t = doc.createElement('div');
+      t.className = 'konami-toast';
+      t.setAttribute('role', 'status');
+      t.textContent = msg;
+      doc.body.appendChild(t);
+      requestAnimationFrame(function () { t.classList.add('is-visible'); });
+      setTimeout(function () { t.classList.remove('is-visible'); }, 2600);
+      setTimeout(function () { t.remove(); }, 3100);
+    }
+    doc.addEventListener('keydown', function (e) {
+      if (e.ctrlKey || e.metaKey || e.altKey) return;
+      var tag = e.target && e.target.tagName;
+      if (tag && /^(INPUT|TEXTAREA|SELECT)$/.test(tag)) return;
+      var key = e.key.length === 1 ? e.key.toLowerCase() : e.key;
+      pos = (key === seq[pos]) ? pos + 1 : (key === seq[0] ? 1 : 0);
+      if (pos === seq.length) {
+        pos = 0;
+        toast('KONAMI ACCEPTED — the Matrix intensifies');
+        if (canvas && !reducedMotion) {
+          canvas.classList.add('matrix-overdrive');
+          setTimeout(function () { canvas.classList.remove('matrix-overdrive'); }, 6000);
+        }
+      }
+    });
+  })();
+
 })();

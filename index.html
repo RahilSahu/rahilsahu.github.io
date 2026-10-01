@@ -32,6 +32,7 @@
   <meta name="theme-color" content="#F2F0E9" media="(prefers-color-scheme: light)">
 
   <link rel="stylesheet" href="assets/styles.css">
+  <link rel="stylesheet" href="assets/palette.css">
 
   <!-- Additive enhancement layer: book cover page-turn, liquid glass, ambient graphics.
        enhance.js is intentionally NOT deferred — it sets the boot class before first
@@ -94,6 +95,7 @@
         <a href="#toolchain">Toolchain</a>
         <a href="#credentials">Credentials</a>
         <a href="#playground">Playground</a>
+        <a href="lab.html">Lab</a>
         <a href="#learn">Learn</a>
         <a href="#ai-sec">AI</a>
         <a href="#engagement">Contact</a>
@@ -127,6 +129,7 @@
 
         <div class="hero-copy">
           <p class="section-tag"><span class="section-tag-num">00</span> engagement summary</p>
+          <p class="avail-badge"><span class="avail-dot" aria-hidden="true"></span>Open to remote roles</p>
 
           <h1 class="hero-title" id="hero-title" data-glitch="Adversarial testing">
             <span class="hero-title-accent" aria-hidden="true"></span>
@@ -261,6 +264,25 @@
               </tr>
             </tbody>
           </table>
+        </div>
+
+        <div class="sevdist" role="img" aria-label="Validated findings by severity: 86 critical, 194 high, 420 medium and low, out of more than 700 total">
+          <p class="sevdist-title">700+ validated findings, by severity</p>
+          <div class="sevdist-row">
+            <span class="sevdist-label">Critical</span>
+            <span class="sevdist-bar" aria-hidden="true"><span class="sevdist-fill sev-crit sev-w-crit"></span></span>
+            <span class="sevdist-num">86</span>
+          </div>
+          <div class="sevdist-row">
+            <span class="sevdist-label">High</span>
+            <span class="sevdist-bar" aria-hidden="true"><span class="sevdist-fill sev-high sev-w-high"></span></span>
+            <span class="sevdist-num">194</span>
+          </div>
+          <div class="sevdist-row">
+            <span class="sevdist-label">Medium / Low</span>
+            <span class="sevdist-bar" aria-hidden="true"><span class="sevdist-fill sev-medlow sev-w-medlow"></span></span>
+            <span class="sevdist-num">420+</span>
+          </div>
         </div>
 
         <h3 class="sub-title">Security architecture &amp; design review</h3>
@@ -975,10 +997,12 @@
             <li>
               <span class="contact-label">Email</span>
               <a href="mailto:rahilsahu2000@gmail.com">rahilsahu2000@gmail.com</a>
+              <button type="button" class="copy-email" data-copy="rahilsahu2000@gmail.com">copy</button>
             </li>
             <li>
               <span class="contact-label">Alt. email</span>
               <a href="mailto:rahilsahu.jobs@gmail.com">rahilsahu.jobs@gmail.com</a>
+              <button type="button" class="copy-email" data-copy="rahilsahu.jobs@gmail.com">copy</button>
             </li>
             <li>
               <span class="contact-label">LinkedIn</span>
@@ -991,6 +1015,21 @@
             <li>
               <span class="contact-label">Location</span>
               <span>Indore, Madhya Pradesh, India</span>
+            </li>
+          </ul>
+
+          <ul class="contact-lines quickfacts" aria-label="Quick facts for recruiters">
+            <li>
+              <span class="contact-label">Timezone</span>
+              <span>IST (UTC+5:30) — overlaps EU working hours and US mornings</span>
+            </li>
+            <li>
+              <span class="contact-label">Notice period</span>
+              <span>60 days, negotiable</span>
+            </li>
+            <li>
+              <span class="contact-label">Work mode</span>
+              <span>Remote-first, based in India</span>
             </li>
           </ul>
         </div>
@@ -1044,6 +1083,8 @@
       </div>
     </section>
 
+    <a class="hire-cta" id="hireCta" href="#engagement">Hire me</a>
+
   </main>
 
   <footer class="site-footer">
@@ -1065,13 +1106,14 @@
         <p class="footer-title">Site</p>
         <ul class="footer-links">
           <li><a href="automation.html">AI workflow automation</a></li>
+          <li><a href="lab.html">Security lab</a></li>
           <li><a href="matrix.html">Enter the Matrix</a></li>
           <li><a href="/.well-known/security.txt">security.txt</a></li>
           <li><a href="/sitemap.xml">sitemap</a></li>
           <li><a href="/humans.txt">humans.txt</a></li>
         </ul>
         <p class="footer-note">Strict CSP / no cookies / no trackers / no third-party requests.</p>
-        <p class="footer-note">Keyboard: <span class="fold-kbd">T</span> theme · <span class="fold-kbd">X</span> fx · <span class="fold-kbd">B</span> top</p>
+        <p class="footer-note">Keyboard: <span class="fold-kbd">T</span> theme · <span class="fold-kbd">X</span> fx · <span class="fold-kbd">B</span> top · <span class="fold-kbd">Ctrl K</span> palette</p>
       </div>
       <div class="footer-col">
         <p class="footer-copy">© <span id="year">2026</span> Rahil Sahu. Built with intent.</p>
@@ -1084,5 +1126,6 @@
   <script src="assets/main.js" defer></script>
   <!-- Contact form delivery. Must load after main.js. -->
   <script src="assets/contact.js" defer></script>
+  <script src="assets/palette.js" defer></script>
 </body>
 </html>

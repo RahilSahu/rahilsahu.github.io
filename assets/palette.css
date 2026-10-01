@@ -1,0 +1,74 @@
+/* ============================================================
+   Command palette (Ctrl/⌘+K) — site-wide quick navigation.
+   Loaded on every page. No dependencies.
+   ============================================================ */
+
+.palette-backdrop {
+  position: fixed; inset: 0; z-index: 900;
+  background: rgba(10, 10, 10, .45);
+  display: flex; align-items: flex-start; justify-content: center;
+  padding: 12vh 1rem 1rem;
+  opacity: 0; pointer-events: none;
+  transition: opacity .18s ease;
+}
+.palette-backdrop.is-open { opacity: 1; pointer-events: auto; }
+
+.palette {
+  width: min(560px, 100%);
+  background: var(--surface, #fff);
+  color: var(--ink, #111);
+  border: 1px solid var(--line-strong, #ccc);
+  border-radius: 14px;
+  box-shadow: 0 24px 70px -18px rgba(0, 0, 0, .5);
+  overflow: hidden;
+  transform: translateY(-8px) scale(.99);
+  transition: transform .18s ease;
+}
+.palette-backdrop.is-open .palette { transform: none; }
+
+.palette-input {
+  width: 100%; box-sizing: border-box;
+  border: 0; border-bottom: 1px solid var(--line, #ddd);
+  background: transparent; color: inherit;
+  font: inherit; font-size: 1rem;
+  padding: .9rem 1.1rem;
+  outline: none;
+}
+.palette-list {
+  list-style: none; margin: 0; padding: .4rem;
+  max-height: 46vh; overflow-y: auto;
+}
+.palette-item {
+  display: flex; align-items: center; gap: .7rem;
+  padding: .6rem .8rem; border-radius: 8px;
+  cursor: pointer; font-size: .95rem;
+}
+.palette-item .palette-kicker {
+  font-family: var(--font-mono, monospace); font-size: .72rem;
+  color: var(--ink-muted, #666); text-transform: lowercase;
+  min-width: 4.2rem;
+}
+.palette-item.is-active { background: var(--line, #eee); }
+.palette-empty { padding: 1rem; color: var(--ink-muted, #666); font-size: .9rem; }
+.palette-foot {
+  padding: .55rem 1.1rem;
+  border-top: 1px solid var(--line, #ddd);
+  font-size: .75rem; color: var(--ink-muted, #666);
+  display: flex; gap: 1rem;
+}
+.palette-foot kbd {
+  font-family: var(--font-mono, monospace);
+  border: 1px solid var(--line-strong, #ccc); border-radius: 4px;
+  padding: 0 .35rem; font-size: .72rem;
+}
+
+/* Transient "copied" flash — class-based so the strict CSP stays happy */
+.palette-flash {
+  position: fixed; left: 50%; bottom: 2rem; z-index: 999;
+  transform: translateX(-50%);
+  background: #111; color: #fff;
+  padding: .6rem 1.1rem; border-radius: 999px;
+  font-size: .85rem; box-shadow: 0 10px 30px rgba(0,0,0,.35);
+  transition: opacity .4s ease;
+}
+.palette-flash.is-gone { opacity: 0; }

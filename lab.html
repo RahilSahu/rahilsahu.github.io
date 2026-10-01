@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en" data-theme="auto">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+  <title>Security lab — interactive tools by Rahil Sahu</title>
+  <meta name="description" content="Five small security tools that run entirely in your browser: password strength, hashing, Base64, JWT decoding and subnet math. Built by Rahil Sahu, Application Security Engineer.">
+  <meta name="author" content="Rahil Sahu">
+  <link rel="canonical" href="https://rahilsahu.github.io/lab.html">
+
+  <!-- CSP without inline-script hash: this page ships zero inline scripts or styles. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; base-uri 'self'; form-action mailto:; frame-ancestors 'none'; object-src 'none'; upgrade-insecure-requests">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+
+  <!-- FLAG{l4b-r4t-h4s-t33th} — well, you found the source. The playground has harder ones. -->
+
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="stylesheet" href="assets/styles.css">
+  <link rel="stylesheet" href="assets/lab.css">
+  <link rel="stylesheet" href="assets/palette.css">
+</head>
+
+<body>
+  <div id="veil" aria-hidden="true"><span class="veil-mark">[rs]</span></div>
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="index.html" aria-label="Rahil Sahu — home">
+        <span class="brand-mark" aria-hidden="true">
+          <span class="brand-bracket">[</span><span class="brand-initials">rs</span><span class="brand-bracket">]</span>
+        </span>
+        <span class="brand-text">
+          <span class="brand-name">Rahil Sahu</span>
+          <span class="brand-role">Application Security Engineer</span>
+        </span>
+      </a>
+
+      <nav class="site-nav" id="primaryNav" aria-label="Primary">
+        <a href="index.html">Home</a>
+        <a href="lab.html" aria-current="page">Lab</a>
+        <a href="automation.html">Automation</a>
+        <a href="matrix.html">Matrix</a>
+      </nav>
+
+      <div class="header-actions">
+        <a class="btn btn-ghost btn-small" href="index.html#engagement">Contact</a>
+        <button class="nav-toggle" id="navToggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="primaryNav">
+          <span aria-hidden="true"></span>
+        </button>
+        <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle colour theme" aria-pressed="false">
+          <span class="theme-toggle-track" aria-hidden="true"></span>
+          <span class="theme-toggle-label" data-label-light="light" data-label-dark="dark">auto</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <section class="section page-hero" aria-labelledby="lab-title">
+      <div class="wrap">
+        <p class="breadcrumb"><a href="index.html">home</a> / lab</p>
+        <p class="section-tag"><span class="section-tag-num">L1</span> security lab</p>
+        <h1 class="section-title" id="lab-title">Small tools, real crypto primitives.</h1>
+        <p class="section-lead">
+          Five utilities I reach for during assessments, rebuilt here so you can try them.
+          Everything runs in your browser with the Web Crypto API — nothing you type leaves this page.
+        </p>
+
+        <div class="lab-grid">
+
+          <article class="lab-card" aria-labelledby="lab-pw-title">
+            <h2 class="lab-card-title" id="lab-pw-title">Password strength</h2>
+            <p class="lab-card-brief">Estimates entropy from length and character pool, then translates it into an illustrative offline-crack time.</p>
+            <label class="lab-label" for="lab-pw-in">Candidate password</label>
+            <input class="lab-input" id="lab-pw-in" type="password" autocomplete="new-password" spellcheck="false" placeholder="type to evaluate — never sent anywhere">
+            <p class="lab-out" id="lab-pw-out" role="status" aria-live="polite"></p>
+          </article>
+
+          <article class="lab-card" aria-labelledby="lab-hash-title">
+            <h2 class="lab-card-title" id="lab-hash-title">Hash generator</h2>
+            <p class="lab-card-brief">One-way digests via the Web Crypto API. Useful for checksums, not for storing passwords (use Argon2 or bcrypt for that).</p>
+            <label class="lab-label" for="lab-hash-in">Input</label>
+            <input class="lab-input" id="lab-hash-in" type="text" spellcheck="false" autocomplete="off" placeholder="text to hash">
+            <div class="lab-row">
+              <label class="lab-label visually-hidden" for="lab-hash-algo">Algorithm</label>
+              <select class="lab-input lab-select" id="lab-hash-algo">
+                <option value="SHA-256">SHA-256</option>
+                <option value="SHA-384">SHA-384</option>
+                <option value="SHA-512">SHA-512</option>
+                <option value="SHA-1">SHA-1 (broken — demo only)</option>
+              </select>
+              <button class="btn btn-primary btn-small" id="lab-hash-go" type="button">Hash</button>
+            </div>
+            <p class="lab-out lab-mono" id="lab-hash-out" role="status" aria-live="polite"></p>
+          </article>
+
+          <article class="lab-card" aria-labelledby="lab-b64-title">
+            <h2 class="lab-card-title" id="lab-b64-title">Base64 codec</h2>
+            <p class="lab-card-brief">Encoding is not encryption — it just changes representation. Handy when reading tokens, blobs and basic-auth headers.</p>
+            <label class="lab-label" for="lab-b64-in">Input</label>
+            <textarea class="lab-input" id="lab-b64-in" rows="3" spellcheck="false" placeholder="text or base64"></textarea>
+            <div class="lab-row">
+              <button class="btn btn-primary btn-small" id="lab-b64-enc" type="button">Encode</button>
+              <button class="btn btn-ghost btn-small" id="lab-b64-dec" type="button">Decode</button>
+            </div>
+            <p class="lab-out lab-mono" id="lab-b64-out" role="status" aria-live="polite"></p>
+          </article>
+
+          <article class="lab-card" aria-labelledby="lab-jwt-title">
+            <h2 class="lab-card-title" id="lab-jwt-title">JWT inspector</h2>
+            <p class="lab-card-brief">Decodes the header and payload of a JSON Web Token. The signature is shown, not verified — verification needs the server's key.</p>
+            <label class="lab-label" for="lab-jwt-in">Token</label>
+            <textarea class="lab-input lab-mono" id="lab-jwt-in" rows="3" spellcheck="false" autocomplete="off" placeholder="eyJhbGciOi…"></textarea>
+            <div class="lab-row">
+              <button class="btn btn-primary btn-small" id="lab-jwt-go" type="button">Decode</button>
+            </div>
+            <pre class="lab-out lab-mono lab-pre" id="lab-jwt-out" role="status" aria-live="polite"></pre>
+          </article>
+
+          <article class="lab-card" aria-labelledby="lab-cidr-title">
+            <h2 class="lab-card-title" id="lab-cidr-title">Subnet calculator</h2>
+            <p class="lab-card-brief">IPv4 CIDR math for scoping engagements: network, broadcast and usable range from an address and prefix length.</p>
+            <label class="lab-label" for="lab-cidr-in">Address / prefix</label>
+            <input class="lab-input lab-mono" id="lab-cidr-in" type="text" spellcheck="false" autocomplete="off" placeholder="192.168.1.10/24">
+            <div class="lab-row">
+              <button class="btn btn-primary btn-small" id="lab-cidr-go" type="button">Calculate</button>
+            </div>
+            <p class="lab-out lab-mono" id="lab-cidr-out" role="status" aria-live="polite"></p>
+          </article>
+
+        </div>
+
+        <p class="lab-note">All computation is local. There is no backend, no analytics and no storage — refresh and everything is gone.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <div class="footer-col">
+        <p class="footer-title">Rahil Sahu</p>
+        <p class="footer-sub">Application Security Engineer / Indore, India</p>
+      </div>
+      <div class="footer-col">
+        <p class="footer-title">Links</p>
+        <ul class="footer-links">
+          <li><a href="resume.pdf" download="Rahil_Sahu_Resume.pdf">Résumé (PDF)</a></li>
+          <li><a href="https://www.linkedin.com/in/rahilsahu" rel="noopener noreferrer" target="_blank">LinkedIn</a></li>
+          <li><a href="https://github.com/RahilSahu" rel="noopener noreferrer" target="_blank">GitHub</a></li>
+          <li><a href="mailto:rahilsahu2000@gmail.com">Email</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <p class="footer-title">Site</p>
+        <ul class="footer-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="lab.html">Security lab</a></li>
+          <li><a href="automation.html">AI workflow automation</a></li>
+          <li><a href="matrix.html">Enter the Matrix</a></li>
+          <li><a href="/.well-known/security.txt">security.txt</a></li>
+          <li><a href="/sitemap.xml">sitemap</a></li>
+          <li><a href="/humans.txt">humans.txt</a></li>
+        </ul>
+        <p class="footer-note">Strict CSP / no cookies / no trackers / no third-party requests.</p>
+        <p class="footer-note">Keyboard: <span class="fold-kbd">Ctrl K</span> palette</p>
+      </div>
+      <div class="footer-col">
+        <p class="footer-copy">© <span id="year">2026</span> Rahil Sahu. Built with intent.</p>
+      </div>
+    </div>
+  </footer>
+
+  <button id="toTop" type="button" aria-label="Back to top" title="Back to top">&uarr;</button>
+
+  <script src="assets/main.js" defer></script>
+  <script src="assets/lab.js" defer></script>
+  <script src="assets/palette.js" defer></script>
+</body>
+</html>
