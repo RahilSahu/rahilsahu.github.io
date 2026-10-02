@@ -2849,9 +2849,6 @@ body.is-loaded #veil { opacity: 0; pointer-events: none; }
 .copy-email:hover { color: var(--accent); border-color: var(--accent); }
 .copy-email.is-done { color: #16A34A; border-color: #16A34A; }
 
-/* Quick facts reuse .contact-lines; breathing room when stacked */
-.quickfacts { margin-top: 1.4rem; }
-
 /* Sticky mobile hire CTA — desktop keeps the header actions */
 .hire-cta {
   position: fixed; left: 50%; bottom: max(1rem, env(safe-area-inset-bottom));
