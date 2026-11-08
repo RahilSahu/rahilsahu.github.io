@@ -454,7 +454,7 @@ html.enh-unfolding body { visibility: visible; }
 
 /* The site itself arrives like a sheet settling into place as the
    cover unfolds over it. Fixed decorative layers are excluded. */
-html.enh-reveal body > *:not(.enh-book):not(.enh-unfold):not(#veil):not(.enh-ambient):not(.enh-grain):not(.enh-spot):not(.enh-svgdefs):not(.matrix-canvas):not(.scroll-progress):not(.skip-link) {
+html.enh-reveal body > *:not(.enh-book):not(.enh-unfold):not(#veil):not(.enh-ambient):not(.enh-grain):not(.enh-spot):not(.enh-svgdefs):not(.matrix-canvas):not(.scroll-progress):not(.skip-link):not(.palette-backdrop):not(.palette-flash) {
   animation: enh-sheet-in 860ms var(--g-ease) both;
 }
 @keyframes enh-sheet-in {
@@ -847,7 +847,7 @@ html.enh-on .enh-parallax { will-change: translate; }
   .enh-book::before,
   .enh-orb-1, .enh-orb-2, .enh-orb-3 { animation: none; }
   .enh-stamp { animation: none; opacity: .94; }
-  html.enh-reveal body > *:not(.enh-book):not(.enh-unfold):not(#veil):not(.enh-ambient):not(.enh-grain):not(.enh-spot):not(.enh-svgdefs):not(.matrix-canvas):not(.scroll-progress):not(.skip-link) { animation: none; }
+  html.enh-reveal body > *:not(.enh-book):not(.enh-unfold):not(#veil):not(.enh-ambient):not(.enh-grain):not(.enh-spot):not(.enh-svgdefs):not(.matrix-canvas):not(.scroll-progress):not(.skip-link):not(.palette-backdrop):not(.palette-flash) { animation: none; }
   html.enh-on .enh-gel { opacity: 1; scale: 1; translate: 0; filter: none; }
   html.enh-on .enh-gel.enh-in { transition: none; }
   html.enh-on .enh-sweep.enh-in { animation: none; }

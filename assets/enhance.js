@@ -224,8 +224,12 @@
   function wireCover(parts, onDone) {
     var opened = false;
     var timer = null;
-    /* One continuous motion: decisive start, soft landing. */
-    var EASE = 'cubic-bezier(.3,.8,.3,1)';
+    /* One continuous motion: an even swing, soft landing. The old
+       curve (.3,.8,.3,1) front-loaded the easing so hard that the
+       doors snapped past 90 degrees in the first ~200ms and the
+       remaining second was just a blur fade; this curve spreads the
+       swing across the whole duration. */
+    var EASE = 'cubic-bezier(.45,.02,.25,1)';
     var DUR = 1200; /* ms for the unfold */
 
     function finish() {
@@ -294,14 +298,14 @@
 
       var aL = left.animate([
         { transform: 'rotateY(0deg)', filter: 'blur(0px)', opacity: 1 },
-        { transform: 'rotateY(-150deg)', filter: 'blur(10px)', opacity: 1, offset: 0.7 },
-        { transform: 'rotateY(-150deg)', filter: 'blur(10px)', opacity: 0 }
+        { transform: 'rotateY(-150deg)', filter: 'blur(6px)', opacity: 1, offset: 0.85 },
+        { transform: 'rotateY(-150deg)', filter: 'blur(6px)', opacity: 0 }
       ], { duration: DUR, easing: EASE, fill: 'forwards' });
 
       var aR = right.animate([
         { transform: 'rotateY(0deg)', filter: 'blur(0px)', opacity: 1 },
-        { transform: 'rotateY(150deg)', filter: 'blur(10px)', opacity: 1, offset: 0.7 },
-        { transform: 'rotateY(150deg)', filter: 'blur(10px)', opacity: 0 }
+        { transform: 'rotateY(150deg)', filter: 'blur(6px)', opacity: 1, offset: 0.85 },
+        { transform: 'rotateY(150deg)', filter: 'blur(6px)', opacity: 0 }
       ], { duration: DUR, easing: EASE, fill: 'forwards' });
 
       var aH = hinge.animate([

@@ -31,15 +31,15 @@
   <meta name="theme-color" content="#0B0F14" media="(prefers-color-scheme: dark)">
   <meta name="theme-color" content="#F2F0E9" media="(prefers-color-scheme: light)">
 
-  <link rel="stylesheet" href="assets/styles.css?v=20261002c">
-  <link rel="stylesheet" href="assets/palette.css?v=20261002c">
+  <link rel="stylesheet" href="assets/styles.css?v=20261108a">
+  <link rel="stylesheet" href="assets/palette.css?v=20261108a">
 
   <!-- Additive enhancement layer: book cover page-turn, liquid glass, ambient graphics.
        enhance.js is intentionally NOT deferred — it sets the boot class before first
        paint so the page never flashes ahead of the cover. Both files are same-origin,
        so the existing CSP ('self') already covers them. -->
-  <link rel="stylesheet" href="assets/enhance.css?v=20261002c">
-  <script src="assets/enhance.js?v=20261002c"></script>
+  <link rel="stylesheet" href="assets/enhance.css?v=20261108a">
+  <script src="assets/enhance.js?v=20261108a"></script>
 
   <!-- JSON-LD: Person -->
   <script type="application/ld+json">
@@ -550,6 +550,136 @@
               <li>per-person dwell time</li>
               <li>exportable register</li>
             </ul>
+          </article>
+
+        </div>
+
+        <!-- Open source on GitHub -->
+        <h3 class="proj-subhead">Open source on GitHub</h3>
+        <p class="section-lead">
+          Everything below is public, MIT-licensed and tested &mdash; the code is the claim.
+          Full list on <a href="https://github.com/RahilSahu" target="_blank" rel="noopener">github.com/RahilSahu</a>.
+        </p>
+        <div class="proj-grid">
+
+          <article class="proj-card">
+            <div class="proj-head">
+              <span class="proj-kind">ai security platform</span>
+              <span class="proj-badge is-flagship">flagship</span>
+            </div>
+            <h3 class="proj-title">Aegis Security Platform</h3>
+            <p class="proj-desc">
+              Scanners find; Aegis proves. It ingests Nuclei, ZAP, Burp and generic scanner output, dedupes the same
+              issue across tools, then verifies every finding with deterministic, non-destructive checks before AI
+              triage writes a word &mdash; the AI can never set the verification status. Evidence-grade reports in
+              Markdown, HTML and JSON, with a retest loop that diffs fixed, persistent and regressed findings.
+            </p>
+            <ul class="proj-stack" aria-label="Capabilities">
+              <li>cross-tool dedupe</li>
+              <li>deterministic verification</li>
+              <li>AI triage</li>
+              <li>retest diffing</li>
+            </ul>
+            <p class="proj-links"><a class="proj-repo" href="https://github.com/RahilSahu/aegis-security-platform" target="_blank" rel="noopener">GitHub repo</a></p>
+          </article>
+
+          <article class="proj-card">
+            <div class="proj-head">
+              <span class="proj-kind">ai product</span>
+              <span class="proj-badge">live demo</span>
+            </div>
+            <h3 class="proj-title">AdaptiveChat</h3>
+            <p class="proj-desc">
+              A chatbot that sets its own temperature for every message &mdash; facts run cold, brainstorming runs
+              hot &mdash; behind input and output guardrails, orchestrated as a LangGraph state machine. Upload
+              documents and answers come from your files with cited sources. Bring your own API key in the browser;
+              nothing is stored server-side.
+            </p>
+            <ul class="proj-stack" aria-label="Capabilities">
+              <li>self-adjusting temperature</li>
+              <li>LangGraph orchestration</li>
+              <li>document RAG</li>
+              <li>bring-your-own-key</li>
+            </ul>
+            <p class="proj-links"><a class="proj-repo" href="https://github.com/RahilSahu/adaptive-llm-chatbot" target="_blank" rel="noopener">GitHub repo</a> <a class="proj-repo" href="https://adaptivechat.vercel.app" target="_blank" rel="noopener">Live demo</a></p>
+          </article>
+
+          <article class="proj-card">
+            <div class="proj-head">
+              <span class="proj-kind">systems</span>
+              <span class="proj-badge">pure stdlib</span>
+            </div>
+            <h3 class="proj-title">Distributed Task Queue</h3>
+            <p class="proj-desc">
+              A production-shaped task queue in pure Python standard library &mdash; no dependencies. Priority and
+              FIFO leasing with owner-checked ack, fail and heartbeat, exponential-backoff retries into a
+              dead-letter queue, delayed jobs and atomic JSON persistence with at-least-once delivery semantics.
+            </p>
+            <ul class="proj-stack" aria-label="Capabilities">
+              <li>priority leasing</li>
+              <li>dead-letter queue</li>
+              <li>backoff retries</li>
+              <li>zero dependencies</li>
+            </ul>
+            <p class="proj-links"><a class="proj-repo" href="https://github.com/RahilSahu/distributed-task-queue" target="_blank" rel="noopener">GitHub repo</a></p>
+          </article>
+
+          <article class="proj-card">
+            <div class="proj-head">
+              <span class="proj-kind">cloud security</span>
+              <span class="proj-badge">4 clouds</span>
+            </div>
+            <h3 class="proj-title">Cloud Misconfiguration Scanner</h3>
+            <p class="proj-desc">
+              Finds the exposures that turn into breaches: unauthenticated public-access checks plus offline
+              analysers for AWS, Azure, GCP and OCI policies, security groups and firewalls. Runs against a whole
+              fleet from one targets file and exports a JSON report.
+            </p>
+            <ul class="proj-stack" aria-label="Capabilities">
+              <li>AWS &middot; Azure &middot; GCP &middot; OCI</li>
+              <li>public exposure checks</li>
+              <li>fleet mode</li>
+            </ul>
+            <p class="proj-links"><a class="proj-repo" href="https://github.com/RahilSahu/cloud-misconfiguration-scanner" target="_blank" rel="noopener">GitHub repo</a></p>
+          </article>
+
+          <article class="proj-card">
+            <div class="proj-head">
+              <span class="proj-kind">appsec tooling</span>
+              <span class="proj-badge">10 tools</span>
+            </div>
+            <h3 class="proj-title">Zero-Dependency Security Tools</h3>
+            <p class="proj-desc">
+              A shelf of small, single-purpose tools that run anywhere Python does: HTTP security headers checker,
+              TLS certificate inspector, DNS and email-auth checker, JWT analyzer, CORS misconfiguration checker,
+              bulk URL checker, port scanner lite and more. Every tool ships with offline unit tests.
+            </p>
+            <ul class="proj-stack" aria-label="Capabilities">
+              <li>zero dependencies</li>
+              <li>offline tests</li>
+              <li>MIT licensed</li>
+            </ul>
+            <p class="proj-links"><a class="proj-repo" href="https://github.com/RahilSahu?tab=repositories" target="_blank" rel="noopener">Browse the repositories</a></p>
+          </article>
+
+          <article class="proj-card">
+            <div class="proj-head">
+              <span class="proj-kind">writing</span>
+              <span class="proj-badge">blog</span>
+            </div>
+            <h3 class="proj-title">AppSec Field Notes</h3>
+            <p class="proj-desc">
+              Original notes from real engagements, written to be used: an HTTP security headers audit, a file
+              upload testing checklist, a JWT audit walkthrough, SPF, DKIM and DMARC explained from the
+              attacker's side, and how RLO filename spoofing hides a file's true type.
+            </p>
+            <ul class="proj-stack" aria-label="Topics">
+              <li>HTTP headers</li>
+              <li>file uploads</li>
+              <li>JWT</li>
+              <li>email auth</li>
+            </ul>
+            <p class="proj-links"><a class="proj-repo" href="https://github.com/RahilSahu/appsec-field-notes" target="_blank" rel="noopener">GitHub repo</a></p>
           </article>
 
         </div>
@@ -1104,9 +1234,9 @@
 
   <button id="toTop" type="button" aria-label="Back to top" title="Back to top">&uarr;</button>
 
-  <script src="assets/main.js?v=20261002c" defer></script>
+  <script src="assets/main.js?v=20261108a" defer></script>
   <!-- Contact form delivery. Must load after main.js. -->
-  <script src="assets/contact.js?v=20261002c" defer></script>
-  <script src="assets/palette.js?v=20261002c" defer></script>
+  <script src="assets/contact.js?v=20261108a" defer></script>
+  <script src="assets/palette.js?v=20261108a" defer></script>
 </body>
 </html>
